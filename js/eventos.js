@@ -3,9 +3,13 @@
  */
 //Api:
 const URL_API = "http://www.inf.jmc.utfsm.cl/wp-json/";
+const OFERTAS_API_LOCATION      = "posts?type[]=laborales";
+const PRACTICAS_API_LOCATION    = "posts?type[]=practicas";
 const NOTICAS_API_LOCATION      = "posts?";
+const HORARIO_LAB_API_LOCATION  = "pages/83";
 const EVENTOS_API_LOCATION      = "posts?type[]=eventos";
-//const PRACTICAS_API_LOCATION    = "practicas?_jsonp=?"
+//Varias
+const JS_FOLDER_LOCATION        = "js/";
 //Filtros: (generadores de URL)
 const PAGINA = "&page=";
 const POST_POR_PAGINA = 10;
@@ -20,19 +24,28 @@ const POST_HORARIO_LAB          = 4;
 const POST_EVENTOS              = 5;
 
 /**
+ * Variables de entorno:
+ */
+var paginaActual = 1;
+var postActual = POST_HOME;
+/**
  * Funciones Generales
  */
 function getJsonContent(url, callBackFunction)
 {
+    console.log("DEBUG: getJsonContent: Fue solicitado la URL: "+ url);
     var jSONCont = null;
     $.getJSON(url, function (result)
         {
             jSONCont = result;
         })
         .done(function () {
+            console.log("DEBUG: getJsonContent: Resultado de ajax: ");
+            console.log(jSONCont);
             callBackFunction(jSONCont);
         })
-        .fail(function () {
+        .fail(function (eCode) {
+            console.log("DEBUG: getJsonContent: Error ajax: "+ eCode);
             showError("Conexion generando json - C: 1");
         });
 }
@@ -44,22 +57,32 @@ function showError(info)
 
 function setActualPost(post)
 {
-    if (postActual != POST_HOME && postActual != post)
+    if (postActual != post)
     {
-        postActual = post;
+        /* POR AHORA OFF, SE CARGAN EN EL INDEX.HTML
+        var scriptMaqueta = null;
+        switch (post)
+        {
+            case HORARIO_LAB_API_LOCATION: scriptMaqueta = "maquetaHorariosLab.js"; break;
+            default: scriptMaqueta = "maquetaTitulos.js"; break;
+        }
+        //Carga script de la maqueta visual que corresponda
+        $.getScript(JS_FOLDER_LOCATION + scriptMaqueta);*/
+
         paginaActual = 1;
     }
+    postActual = post;
+    console.log("DEBUG: setPost: postActual: "+ postActual +" paginaActual: "+ paginaActual);
 }
 
 
 /**
  * Eventos de Menu (clicks)
  */
-var paginaActual = 1;
-var postActual = POST_HOME;
 //Atras:
 $("#m_atras").click(function () {
-    postActual = POST_HOME;
+    setActualPost(POST_HOME);
+    $("#m_atras").hide();
     $("#menu_general").show();
     $("#content").text("");
 });
@@ -67,44 +90,44 @@ $("#m_atras").click(function () {
 $("#m_noticias_carrera").click(function () {
     //Validamos posicion y restablecemos valores
     setActualPost(POST_NOTICIAS);
-    //Generamos el URL de la API
-    var url = URL_API + NOTICAS_API_LOCATION
-        + FILTRO_POST_POR_PAG + POST_POR_PAGINA
-        + PAGINA + paginaActual
-        + FILTRO_ORDEN_DESC;
-    paginaActual += 1;
     //Mostramos el nuevo contenido
-    getJsonContent(url, displayNoticias);
+    getJsonContent(getUrl(NOTICAS_API_LOCATION), displayTitulos);
 });
 //Eventos:
 $("#m_eventos").click(function () {
     //Validamos posicion y restablecemos valores
-    setActualPost(POST_NOTICIAS);
-    //Generamos la URL:
-    var url = URL_API + EVENTOS_API_LOCATION
+    setActualPost(POST_EVENTOS);
+    //Mostramos el nuevo contenido
+    getJsonContent(getUrl(EVENTOS_API_LOCATION), displayTitulos);
+});
+//Ofertas laborales
+$("#m_oferta_laboral").click(function () {
+    //Validando posicion
+    setActualPost(POST_OFERTA_LABORAL);
+    getJsonContent(getUrl(OFERTAS_API_LOCATION), displayTitulos);
+});
+//Horario laboratorios
+$("#m_horario_labs").click(function () {
+    //Valid post
+    setActualPost(POST_HORARIO_LAB);
+    var url = URL_API + HORARIO_LAB_API_LOCATION;
+    getJsonContent(url, displayHorarioLab);
+});
+//Practicas laborales
+$("#m_practica_profecional").click(function () {
+    //Valid post
+    setActualPost(POST_PRACTICA_PROFECIONAL);
+    getJsonContent(getUrl(PRACTICAS_API_LOCATION), displayTitulos);
+});
+
+function getUrl(apiLocation)
+{
+    //Generando URL:
+    var url = URL_API + apiLocation
         + FILTRO_POST_POR_PAG + POST_POR_PAGINA
         + PAGINA + paginaActual
         + FILTRO_ORDEN_DESC;
     paginaActual += 1;
-});
 
-/**
- * Display Function
- */
-//Noticias
-function displayNoticias(jSONContent)
-{
-    if (jSONContent.length > 0)
-    {
-        //Escondemos el menu general
-        $("#menu_general").hide();
-        jSONContent.forEach(function (data)
-        {
-            $("#content").append(data['title'] + "<br/>");
-        });
-    }
-    else
-    {
-        showError("Sin contenido! - C: 2");
-    }
+    return url;
 }

@@ -1,0 +1,37 @@
+/*Header*/
+header
+{
+    background-color: #71a2ca;
+    background-image: url('../img/panel_cabecera.jpg');
+    background-repeat: no-repeat;
+    color: white;
+    margin-bottom: 5%;
+}
+/*Footer*/
+footer
+{
+    margin-top: 2%;
+    background-image: url('../img/panel_pie.png');
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 232px;
+}
+
+/*Estilo de fondo del menu principal*/
+.m_list_group
+{
+    background-color: #5bb2f7;
+    color: white;
+    border-radius: 17px;
+    margin-bottom: 2%;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+/*Estilo custome segun seccion:*/
+#m_oferta_laboral { box-shadow: 0 9px #d45049; }
+#m_noticias_carrera { box-shadow: 0 9px #166cba; }
+#m_practica_profecional { box-shadow: 0 9px #7e4ecd; }
+#m_horario_labs { box-shadow: 0 9px #f3d35e; }
+#m_eventos { box-shadow: 0 9px #2f9e8e; }

@@ -131,3 +131,47 @@ function getUrl(apiLocation)
 
     return url;
 }
+
+/*
+ * Controles ejecucion (?)
+ */
+//Pagina lista!
+$( document ).ready(function()
+{
+    //Toma la fecha actual
+    $("#fechaActual").text(controlHora());
+    //Revisa nuevas publicaciones...
+});
+
+function controlHora()
+{
+    var fechaObject = new Date();
+    //set Dia
+    var diaNum = fechaObject.getDate();
+    var diaSemana = new Array(7);
+    diaSemana[0]=  "Domingo";
+    diaSemana[1] = "Lunes";
+    diaSemana[2] = "Martes";
+    diaSemana[3] = "Miercoles";
+    diaSemana[4] = "Jueves";
+    diaSemana[5] = "Viernes";
+    diaSemana[6] = "Sabado";
+    var diaText = diaSemana[fechaObject.getDay()];
+    //set Mes
+    var mesAnio = new Array(12);
+    mesAnio[0]=  "Enero";
+    mesAnio[1] = "Febrero";
+    mesAnio[2] = "Marzo";
+    mesAnio[3] = "Abril";
+    mesAnio[4] = "Mayo";
+    mesAnio[5] = "Junio";
+    mesAnio[6] = "Julio";
+    mesAnio[7]=  "Agosto";
+    mesAnio[8] = "Septiembre";
+    mesAnio[9] = "Octubre";
+    mesAnio[10] = "Noviembre";
+    mesAnio[11] = "Diciembre";
+    var mesText = mesAnio[fechaObject.getMonth()];
+
+    return diaText +" "+ diaNum +" de "+ mesText +", "+ fechaObject.getHours() +':'+ fechaObject.getMinutes();
+}

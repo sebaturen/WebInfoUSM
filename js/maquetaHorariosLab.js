@@ -12,8 +12,8 @@ function displayHorarioLab(jSONContent)
     if (contentPage.length > 0)
     {
         //Escondemos el menu general
-        $("#menu_general").hide();
-        $("#m_atras").show();
+        $("#menu_general").toggleClass("hidden", "show");
+        $("#m_atras").toggleClass("hidden", "show");
         //Rompemos el STRING en busca de los PDF:
         //1º Buscamos una <ul> (los horarios van en una lista)
         contentPage = contentPage.split("<ul>")[1];
@@ -22,12 +22,17 @@ function displayHorarioLab(jSONContent)
         //Sacamos la basura...
         horariosPdf.splice(0,1);
         //Recorremos cada <li>
+        var textAut = '<ul class="list-group">';
+        var i = 1;
         horariosPdf.forEach(function (data)
         {
             var inicioPDF = data.search("http://");
             var finPDF = data.search(".pdf"); //Se le debe sumar 4 para que guarde la posicion hasta que termina la extencion
-            $("#content").append("<br/> - PDF:"+ data.substring(inicioPDF, finPDF+4));
+            textAut += '<li class="list-group-item"><a href="'+ data.substring(inicioPDF, finPDF+4) +'">Horario Laboratorio '+ i +"</a></li>";
+            i++;
         });
+        textAut += '</ul>';
+        $("#content").html(textAut);
     }
     else
     {

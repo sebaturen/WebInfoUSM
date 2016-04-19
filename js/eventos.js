@@ -8,6 +8,7 @@ const PRACTICAS_API_LOCATION    = "posts?type[]=practicas";
 const NOTICAS_API_LOCATION      = "posts?";
 const HORARIO_LAB_API_LOCATION  = "pages/83";
 const EVENTOS_API_LOCATION      = "posts?type[]=eventos";
+const POST_DETAIL               = "posts/";
 //Varias
 const JS_FOLDER_LOCATION        = "js/";
 //Filtros: (generadores de URL)
@@ -26,13 +27,18 @@ const POST_EVENTOS              = 5;
 /**
  * Variables de entorno:
  */
-var paginaActual = 1;
+var paginaActual = 0;
 var postActual = POST_HOME;
+var postAnterior = POST_HOME;
+var apiLocation = null;
 /**
  * Funciones Generales
  */
 function getJsonContent(url, callBackFunction)
 {
+    //Div muestra de carga...
+    $("#loadingDiv").toggleClass("hidden", "show");
+    //Obteniendo datos ajax
     console.log("DEBUG: getJsonContent: Fue solicitado la URL: "+ url);
     var jSONCont = null;
     $.getJSON(url, function (result)
@@ -47,6 +53,10 @@ function getJsonContent(url, callBackFunction)
         .fail(function (eCode) {
             console.log("DEBUG: getJsonContent: Error ajax: "+ eCode);
             showError("Conexion generando json - C: 1");
+        })
+        .always(function () {
+            //fin carga...
+            $("#loadingDiv").toggleClass("hidden", "show");
         });
 }
 
@@ -69,8 +79,9 @@ function setActualPost(post)
         //Carga script de la maqueta visual que corresponda
         $.getScript(JS_FOLDER_LOCATION + scriptMaqueta);*/
 
-        paginaActual = 1;
+        paginaActual = 0;
     }
+    postAnterior = postActual;
     postActual = post;
     console.log("DEBUG: setPost: postActual: "+ postActual +" paginaActual: "+ paginaActual);
 }
@@ -81,9 +92,14 @@ function setActualPost(post)
  */
 //Atras:
 $("#m_atras").click(function () {
+    //Esconde el menu de navegacion.
+    if (postActual != POST_HORARIO_LAB)
+    {
+        $("#m_atrasP_adelanteP").toggleClass("hidden", "show");
+    }
     setActualPost(POST_HOME);
-    $("#m_atras").hide();
-    $("#menu_general").show();
+    $("#m_atras").toggleClass("hidden", "show");
+    $("#menu_general").toggleClass("hidden", "show");
     $("#content").text("");
 });
 //Noticias:
@@ -91,20 +107,23 @@ $("#m_noticias_carrera").click(function () {
     //Validamos posicion y restablecemos valores
     setActualPost(POST_NOTICIAS);
     //Mostramos el nuevo contenido
-    getJsonContent(getUrl(NOTICAS_API_LOCATION), displayTitulos);
+    apiLocation = NOTICAS_API_LOCATION;
+    getJsonContent(getUrlTitulos(), displayTitulos);
 });
 //Eventos:
 $("#m_eventos").click(function () {
     //Validamos posicion y restablecemos valores
     setActualPost(POST_EVENTOS);
     //Mostramos el nuevo contenido
-    getJsonContent(getUrl(EVENTOS_API_LOCATION), displayTitulos);
+    apiLocation = EVENTOS_API_LOCATION;
+    getJsonContent(getUrlTitulos(), displayTitulos);
 });
 //Ofertas laborales
 $("#m_oferta_laboral").click(function () {
     //Validando posicion
     setActualPost(POST_OFERTA_LABORAL);
-    getJsonContent(getUrl(OFERTAS_API_LOCATION), displayTitulos);
+    apiLocation = OFERTAS_API_LOCATION;
+    getJsonContent(getUrlTitulos(), displayTitulos);
 });
 //Horario laboratorios
 $("#m_horario_labs").click(function () {
@@ -117,18 +136,34 @@ $("#m_horario_labs").click(function () {
 $("#m_practica_profecional").click(function () {
     //Valid post
     setActualPost(POST_PRACTICA_PROFECIONAL);
-    getJsonContent(getUrl(PRACTICAS_API_LOCATION), displayTitulos);
+    apiLocation = PRACTICAS_API_LOCATION;
+    getJsonContent(getUrlTitulos(), displayTitulos);
 });
 
-function getUrl(apiLocation)
+function getUrlTitulos(avance = false)
 {
+    //Avance o retroceso
+    if (!avance)
+    {
+        paginaActual += 1;
+    }
+    else
+    {
+        paginaActual -= 1;
+    }
     //Generando URL:
     var url = URL_API + apiLocation
         + FILTRO_POST_POR_PAG + POST_POR_PAGINA
         + PAGINA + paginaActual
         + FILTRO_ORDEN_DESC;
-    paginaActual += 1;
 
+    return url;
+}
+
+function getUrlContent(idPost)
+{
+    //Generando URL para el detalle
+    var url = URL_API + POST_DETAIL + idPost;
     return url;
 }
 

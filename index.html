@@ -8,55 +8,63 @@
         <link href="css/estilos.css" rel="stylesheet" media="screen">
     </head>
     <body>
+        <div id="loadingDiv" class="hidden">
+            <div class="vertical-center">
+                <h1 class="text-center">Cargando...</h1>
+            </div>
+        </div>
         <header>
-            <div class="container-fluid">
+            <div class="container-fluid text-right">
                 <h3>Punto Informativo Táctil<br/>
                     Técnico Universitario en Informática</h3>
                 <h4 id="fechaActual">&nbsp;</h4>
             </div>
         </header>
         <div class="container-fluid">
-            <!- Menu principal! ->
+            <!- Control Section Atras ->
             <section class="main">
-                <div id="m_atras" style="display: none;">Atras</div>
+                <div id="m_atras" class="hidden">Atras</div>
+            </section>
+            <!- Menu principal! ->
+            <section id="menuPrincipal" class="main">
                 <div id="menu_general">
                     <ul class="list-group">
                         <li id="m_oferta_laboral" class="m_list_group">
                             <div class="row">
-                                <img src="img/icon_ofertas_laborales.png" alt="Ofertas Laborales" class="img-circle col-md-1  .hidden-md-block">
-                                <div class="col-md-11">
+                                <img src="img/icon_ofertas_laborales.png" alt="Ofertas Laborales" class="img-circle col-xs-1 hidden-xs">
+                                <div class="col-xs-11">
                                     <h1>Ofertas laborales</h1>
                                 </div>
                             </div>
                         </li>
                         <li id="m_practica_profecional" class="m_list_group">
                             <div class="row">
-                                <img src="img/icon_practicas_profesionales.png" alt="Practicas Laborales" class="img-circle col-md-1  .hidden-md-block, visible-md">
-                                <div class="col-md-11">
+                                <img src="img/icon_practicas_profesionales.png" alt="Practicas Laborales" class="img-circle col-xs-1 hidden-xs">
+                                <div class="col-xs-11">
                                     <h1>Prácticas profesionales</h1>
                                 </div>
                             </div>
                         </li>
                         <li id="m_noticias_carrera" class="m_list_group">
                             <div class="row">
-                                <img src="img/icon_noticias.png" alt="Noticias" class="img-circle col-md-1  .hidden-md-block, visible-md">
-                                <div class="col-md-11">
+                                <img src="img/icon_noticias.png" alt="Noticias" class="img-circle col-xs-1 hidden-xs">
+                                <div class="col-xs-11">
                                     <h1>Noticias de carrera</h1>
                                 </div>
                             </div>
                         </li>
                         <li id="m_horario_labs" class="m_list_group">
                             <div class="row">
-                                <img src="img/icon_horarios.png" alt="Horario Laboratorios" class="img-circle col-md-1  .hidden-md-block, visible-md">
-                                <div class="col-md-11">
+                                <img src="img/icon_horarios.png" alt="Horario Laboratorios" class="img-circle col-xs-1 hidden-xs">
+                                <div class="col-xs-11">
                                     <h1>Horarios laboratorios</h1>
                                 </div>
                             </div>
                         </li>
                         <li id="m_eventos" class="m_list_group">
                             <div class="row">
-                                <img src="img/icon_eventos.png" alt="Eventos" class="img-circle col-md-1  .hidden-md-block, visible-md">
-                                <div class="col-md-11">
+                                <img src="img/icon_eventos.png" alt="Eventos" class="img-circle col-xs-1 hidden-xs">
+                                <div class="col-xs-11">
                                     <h1>Eventos</h1>
                                 </div>
                             </div>
@@ -65,8 +73,19 @@
                 </div>
             </section>
             <!- Contenido... ->
-            <section class="main">
+            <section id="contentPrincipal" class="main">
                 <div id="content">
+                </div>
+            </section>
+            <!- Control Section->
+            <section class="main">
+                <div id="m_atrasP_adelanteP" class="hidden row">
+                    <div id="m_atrasPage" class="col-xs-6 text-left">
+                        Pagina Anterior
+                    </div>
+                    <div id="m_siguentePage" class="col-xs-6 text-right">
+                        Pagina Siguiente
+                    </div>
                 </div>
             </section>
         </div>

@@ -12,8 +12,7 @@ function displayHorarioLab(jSONContent)
     if (contentPage.length > 0)
     {
         //Escondemos el menu general
-        $("#menu_general").toggleClass("hidden", "show");
-        $("#m_atras").toggleClass("hidden", "show");
+        hideMenuUpAtras();
         //Rompemos el STRING en busca de los PDF:
         //1º Buscamos una <ul> (los horarios van en una lista)
         contentPage = contentPage.split("<ul>")[1];

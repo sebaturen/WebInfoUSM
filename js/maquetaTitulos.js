@@ -11,10 +11,10 @@ function displayTitulos(jSONContent)
     if (jSONContent.length > 0)
     {
         //Escondemos el menu general
+        console.log("post Anterior: "+ postAnterior);
         if (postAnterior == POST_HOME)
         {
-            $("#menu_general").toggleClass("hidden", "show");
-            $("#m_atras").toggleClass("hidden", "show");
+            hideMenuUpAtras();
             $("#m_atrasP_adelanteP").toggleClass("hidden", "show");
         }
         var textAut = '<ul class="list-group">';
@@ -28,16 +28,19 @@ function displayTitulos(jSONContent)
     else
     {
         console.log("DEBUG: displayTitulos: Error, tamaño cero del objeto!");
-        showError("Sin contenido! - C: 2");
+        showError("No se ha encontrado nuevo contenido!");
+        setActualPost(postAnterior); //como no se entro a esta pagina, se define la anterior como actual
     }
 }
 
 //Control de paginas (pagina anterior, pagine siguiente)
 $("#m_atrasPage").click(function () {
+    paginaActual += 1;
     setActualPost(postActual);
     getJsonContent(getUrlTitulos(), displayTitulos);
 });
 $("#m_siguentePage").click(function () {
+    paginaActual -= 1;
     setActualPost(postActual);
     getJsonContent(getUrlTitulos(true), displayTitulos);
 });

@@ -27,7 +27,7 @@ const POST_EVENTOS              = 5;
 /**
  * Variables de entorno:
  */
-var paginaActual = 0;
+var paginaActual = 1;
 var postActual = POST_HOME;
 var postAnterior = POST_HOME;
 var apiLocation = null;
@@ -37,7 +37,7 @@ var apiLocation = null;
 function getJsonContent(url, callBackFunction)
 {
     //Div muestra de carga...
-    $("#loadingDiv").toggleClass("hidden", "show");
+    loadingDiv();
     //Obteniendo datos ajax
     console.log("DEBUG: getJsonContent: Fue solicitado la URL: "+ url);
     var jSONCont = null;
@@ -48,21 +48,38 @@ function getJsonContent(url, callBackFunction)
         .done(function () {
             console.log("DEBUG: getJsonContent: Resultado de ajax: ");
             console.log(jSONCont);
+            //En caso de avanzar, suma la pagina.
             callBackFunction(jSONCont);
         })
         .fail(function (eCode) {
             console.log("DEBUG: getJsonContent: Error ajax: "+ eCode);
-            showError("Conexion generando json - C: 1");
+            showError("Error: Conexion generando json - C: 1");
         })
         .always(function () {
             //fin carga...
-            $("#loadingDiv").toggleClass("hidden", "show");
+            loadingDiv();
         });
 }
 
 function showError(info)
 {
-    alert("Error: "+ info);
+    var textMensaje = '<h1 id="textMensaje" class="text-center">'+ info +'</h1>'
+        + '<div><button onclick="showError()" type="button" class="btn btn-danger">Cerrar</button></div>';
+    $("#divContentMensaje").html(textMensaje);
+    //alert("Error: "+ info);
+    $("#mensajeDiv").toggleClass("hidden", "show");
+}
+
+function loadingDiv()
+{
+    //Activa la div que tiene la carga
+    $("#loadingDiv").toggleClass("hidden", "show");
+}
+
+function hideMenuUpAtras()
+{
+    $("#m_atras").toggleClass("hidden", "show");
+    $("#menuPrincipal").toggleClass("hidden", "show");
 }
 
 function setActualPost(post)
@@ -79,7 +96,7 @@ function setActualPost(post)
         //Carga script de la maqueta visual que corresponda
         $.getScript(JS_FOLDER_LOCATION + scriptMaqueta);*/
 
-        paginaActual = 0;
+        paginaActual = 1;
     }
     postAnterior = postActual;
     postActual = post;
@@ -98,8 +115,7 @@ $("#m_atras").click(function () {
         $("#m_atrasP_adelanteP").toggleClass("hidden", "show");
     }
     setActualPost(POST_HOME);
-    $("#m_atras").toggleClass("hidden", "show");
-    $("#menu_general").toggleClass("hidden", "show");
+    hideMenuUpAtras();
     $("#content").text("");
 });
 //Noticias:
@@ -140,17 +156,8 @@ $("#m_practica_profecional").click(function () {
     getJsonContent(getUrlTitulos(), displayTitulos);
 });
 
-function getUrlTitulos(avance = false)
+function getUrlTitulos()
 {
-    //Avance o retroceso
-    if (!avance)
-    {
-        paginaActual += 1;
-    }
-    else
-    {
-        paginaActual -= 1;
-    }
     //Generando URL:
     var url = URL_API + apiLocation
         + FILTRO_POST_POR_PAG + POST_POR_PAGINA
@@ -187,10 +194,10 @@ function controlHora()
     diaSemana[0]=  "Domingo";
     diaSemana[1] = "Lunes";
     diaSemana[2] = "Martes";
-    diaSemana[3] = "Miercoles";
+    diaSemana[3] = "Miércoles";
     diaSemana[4] = "Jueves";
     diaSemana[5] = "Viernes";
-    diaSemana[6] = "Sabado";
+    diaSemana[6] = "Sábado";
     var diaText = diaSemana[fechaObject.getDay()];
     //set Mes
     var mesAnio = new Array(12);
@@ -208,5 +215,9 @@ function controlHora()
     mesAnio[11] = "Diciembre";
     var mesText = mesAnio[fechaObject.getMonth()];
 
-    return diaText +" "+ diaNum +" de "+ mesText +", "+ fechaObject.getHours() +':'+ fechaObject.getMinutes();
+    var hora = fechaObject.getHours();
+    var min = fechaObject.getMinutes();
+    if (hora < 10) hora = '0' + hora;
+    if (min < 10) min = '0' + min;
+    return diaText +" "+ diaNum +" de "+ mesText +", "+ hora +':'+ min;
 }

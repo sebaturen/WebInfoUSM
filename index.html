@@ -6,12 +6,19 @@
         <title>Punto Informativo Táctil</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/estilos.css" rel="stylesheet" media="screen">
+        <!- Estilos web, ajustar URL final al cargar en el sitio! ->
+        <link href="http://www.inf.jmc.utfsm.cl/wp-content/themes/infjmc-mk2/assets/dist/css/infjmc.min.css" rel="stylesheet" media="screen">
     </head>
     <body>
-        <div id="loadingDiv" class="hidden">
+        <!- Despliegue de mensaje de carga...->
+        <div id="loadingDiv" class="hidden fullDiv">
             <div class="vertical-center">
-                <h1 class="text-center">Cargando...</h1>
+                <h1 id="textMensaje" class="text-center">Cargando...</h1>
             </div>
+        </div>
+        <!- Despliegue de mensaje a toda pantalla (errores)...->
+        <div id="mensajeDiv" class="hidden fullDiv">
+            <div id="divContentMensaje" class="vertical-center"></div>
         </div>
         <header>
             <div class="container-fluid text-right">
@@ -27,7 +34,7 @@
             </section>
             <!- Menu principal! ->
             <section id="menuPrincipal" class="main">
-                <div id="menu_general">
+                <div>
                     <ul class="list-group">
                         <li id="m_oferta_laboral" class="m_list_group">
                             <div class="row">
@@ -78,8 +85,8 @@
                 </div>
             </section>
             <!- Control Section->
-            <section class="main">
-                <div id="m_atrasP_adelanteP" class="hidden row">
+            <section id="m_atrasP_adelanteP" class="main">
+                <div class="hidden row">
                     <div id="m_atrasPage" class="col-xs-6 text-left">
                         Pagina Anterior
                     </div>

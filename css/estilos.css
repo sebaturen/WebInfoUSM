@@ -37,7 +37,7 @@ footer
 #m_eventos { box-shadow: 0 9px #2f9e8e; }
 
 /*Fondo para la carga...*/
-#loadingDiv
+.fullDiv
 {
     position: fixed;
     background-color: rgba(54, 25, 25, .5);

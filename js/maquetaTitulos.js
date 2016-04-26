@@ -1,3 +1,7 @@
+const MOVIMIENTO_PAGINA_ADELANTE = 1;
+const MOVIMIENTO_PAGINA_ATRAS = 2;
+const MOVIMIENTO_PAGINA_NINGUNO = 0;
+var accionPagina = 0;
 /**
  * Maqueta visual de los titulos de cada seccion.
  * Entrada:
@@ -10,13 +14,9 @@ function displayTitulos(jSONContent)
     console.log("DEBUG: displayTitulos: Llego para mostrar (resultado ajax): "+ jSONContent);
     if (jSONContent.length > 0)
     {
+        accionPagina = MOVIMIENTO_PAGINA_NINGUNO;
         //Escondemos el menu general
-        console.log("post Anterior: "+ postAnterior);
-        if (postAnterior == POST_HOME)
-        {
-            hideMenuUpAtras();
-            $("#m_atrasP_adelanteP").toggleClass("hidden", "show");
-        }
+        hideMenuUpAtras();
         var textAut = '<ul class="list-group">';
         jSONContent.forEach(function (data)
         {
@@ -27,22 +27,41 @@ function displayTitulos(jSONContent)
     }
     else
     {
+        if (accionPagina == MOVIMIENTO_PAGINA_ATRAS)
+        {
+            paginaActual -= 1;
+        }
+        if (accionPagina == MOVIMIENTO_PAGINA_NINGUNO)
+        {
+            invertirAvance();
+        }
+        console.log("PAG POST ACTUAL: "+ paginaActual);
         console.log("DEBUG: displayTitulos: Error, tamaño cero del objeto!");
         showError("No se ha encontrado nuevo contenido!");
-        setActualPost(postAnterior); //como no se entro a esta pagina, se define la anterior como actual
+        //REVISAR!
+        //setActualPost(postAnterior.get()); //como no se entro a esta pagina, se define la anterior como actual
     }
 }
 
 //Control de paginas (pagina anterior, pagine siguiente)
 $("#m_atrasPage").click(function () {
+    accionPagina = MOVIMIENTO_PAGINA_ATRAS;
     paginaActual += 1;
-    setActualPost(postActual);
+    //setActualPost(postActual);
     getJsonContent(getUrlTitulos(), displayTitulos);
 });
 $("#m_siguentePage").click(function () {
-    paginaActual -= 1;
-    setActualPost(postActual);
-    getJsonContent(getUrlTitulos(true), displayTitulos);
+    accionPagina = MOVIMIENTO_PAGINA_ADELANTE;
+    if (paginaActual != 1)
+    {
+        paginaActual -= 1;
+        //setActualPost(postActual);
+        getJsonContent(getUrlTitulos(true), displayTitulos);
+    }
+    else
+    {
+        showError("No se ha encontrado nuevo contenido!");
+    }
 });
 
 //Captura de Click para mostrar el contenido de un post
@@ -53,8 +72,7 @@ $("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
 
 function displayContent(jSONContent)
 {
-    //Escondemos el menu de navegacion
-    $("#m_atrasP_adelanteP").toggleClass("hidden", "show");
+    setActualPost(POST_DETAIL_INFO);
     //Tomamos el contenido y mostramos
     $("#content").html(jSONContent['content']);
     $("#content").prepend("<h1>"+jSONContent['title']+"</h1>");

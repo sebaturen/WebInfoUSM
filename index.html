@@ -13,14 +13,23 @@
         <!- Despliegue de mensaje de carga...->
         <div id="loadingDiv" class="hidden fullDiv">
             <div class="vertical-center">
-                <h1 id="textMensaje" class="text-center">Cargando...</h1>
+                <div class="sprite-spinner">
+                    <img src="img/spinner.png" alt=""/>
+                </div>
             </div>
         </div>
         <!- Despliegue de mensaje a toda pantalla (errores)...->
         <div id="mensajeDiv" class="hidden fullDiv">
-            <div id="divContentMensaje" class="vertical-center"></div>
+            <div class="vertical-center">
+                <div id="divContentMensaje">
+                    <h1 id="textMensaje" class="text-center"></h1>
+                    <div>
+                        <button onclick="showError()" type="button" class="btnCancel btn btn-danger">Cerrar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <header>
+        <header onclick="location.reload();">
             <div class="container-fluid text-right">
                 <h3>Punto Informativo Táctil<br/>
                     Técnico Universitario en Informática</h3>
@@ -29,14 +38,14 @@
         </header>
         <div class="container-fluid">
             <!- Control Section Atras ->
-            <section class="main">
-                <div id="m_atras" class="hidden">Atras</div>
+            <section id="m_atras" class="main" style="display: none;">
+                <div class="soyBoton">Atras</div>
             </section>
             <!- Menu principal! ->
             <section id="menuPrincipal" class="main">
                 <div>
                     <ul class="list-group">
-                        <li id="m_oferta_laboral" class="m_list_group">
+                        <li id="m_oferta_laboral" class="soyBoton m_list_group">
                             <div class="row">
                                 <img src="img/icon_ofertas_laborales.png" alt="Ofertas Laborales" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
@@ -44,7 +53,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li id="m_practica_profecional" class="m_list_group">
+                        <li id="m_practica_profecional" class="soyBoton m_list_group">
                             <div class="row">
                                 <img src="img/icon_practicas_profesionales.png" alt="Practicas Laborales" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
@@ -52,7 +61,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li id="m_noticias_carrera" class="m_list_group">
+                        <li id="m_noticias_carrera" class="soyBoton m_list_group">
                             <div class="row">
                                 <img src="img/icon_noticias.png" alt="Noticias" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
@@ -60,7 +69,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li id="m_horario_labs" class="m_list_group">
+                        <li id="m_horario_labs" class="soyBoton m_list_group">
                             <div class="row">
                                 <img src="img/icon_horarios.png" alt="Horario Laboratorios" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
@@ -68,7 +77,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li id="m_eventos" class="m_list_group">
+                        <li id="m_eventos" class="soyBoton m_list_group">
                             <div class="row">
                                 <img src="img/icon_eventos.png" alt="Eventos" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
@@ -80,17 +89,16 @@
                 </div>
             </section>
             <!- Contenido... ->
-            <section id="contentPrincipal" class="main">
-                <div id="content">
-                </div>
+            <section id="contentPrincipal" class="main" style="display: none;">
+                <div id="content"></div>
             </section>
             <!- Control Section->
-            <section id="m_atrasP_adelanteP" class="main">
-                <div class="hidden row">
-                    <div id="m_atrasPage" class="col-xs-6 text-left">
+            <section id="m_atrasP_adelanteP" class="main" style="display: none;">
+                <div class="row">
+                    <div id="m_atrasPage" class="soyBoton col-xs-6 text-left">
                         Pagina Anterior
                     </div>
-                    <div id="m_siguentePage" class="col-xs-6 text-right">
+                    <div id="m_siguentePage" class="soyBoton col-xs-6 text-right">
                         Pagina Siguiente
                     </div>
                 </div>
@@ -100,6 +108,8 @@
         <!- Area de script!->
         <!- JQuery -><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <!- Bootstrap -><script src="js/bootstrap.min.js"></script>
+        <!- Spinner (png loading rotation sistem)-><script src="js/spinner.js"></script>
+        <!- Pila Controler -><script src="js/PilaControl.js"></script>
         <!- Propios del sistema -><script src="js/eventos.js"></script>
         <!- Maquetas visuales ->
             <!- Titulos -><script src="js/maquetaTitulos.js"></script>

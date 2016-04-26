@@ -7,6 +7,16 @@ header
     color: white;
     margin-bottom: 5%;
 }
+header a
+{
+    text-decoration: none;
+    color: white;
+}
+header a:focus, a:hover
+{
+    text-decoration: none !important;
+    color: white;
+}
 /*Footer*/
 footer
 {
@@ -29,12 +39,33 @@ footer
     padding: 10px 15px;
 }
 
+/*Estilo para poner el cursor como boton*/
+.soyBoton
+{
+    cursor: pointer;
+}
 /*Estilo custome segun seccion:*/
 #m_oferta_laboral { box-shadow: 0 9px #d45049; }
 #m_noticias_carrera { box-shadow: 0 9px #166cba; }
 #m_practica_profecional { box-shadow: 0 9px #7e4ecd; }
 #m_horario_labs { box-shadow: 0 9px #f3d35e; }
 #m_eventos { box-shadow: 0 9px #2f9e8e; }
+
+/* Boton Cerrar Mensaje de Error*/
+.btnCancel
+{
+    width: 100%;
+    font-size: 20px;
+}
+
+/* PNG Loading ... */
+.sprite-spinner
+{
+    overflow: hidden;
+    position: relative;
+    display:inline-block;
+    text-align:left;
+}
 
 /*Fondo para la carga...*/
 .fullDiv

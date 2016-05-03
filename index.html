@@ -23,7 +23,7 @@
             <div class="vertical-center">
                 <div id="divContentMensaje">
                     <h1 id="textMensaje" class="text-center"></h1>
-                    <div>
+                    <div class="msngDiv">
                         <button onclick="showError()" type="button" class="btnCancel btn btn-danger">Cerrar</button>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
         <div class="container-fluid">
             <!- Control Section Atras ->
             <section id="m_atras" class="main" style="display: none;">
-                <div class="soyBoton">Atras</div>
+                <div class="soyBoton btn btn-default botonesControl">Atras</div>
             </section>
             <!- Menu principal! ->
             <section id="menuPrincipal" class="main">
@@ -50,6 +50,7 @@
                                 <img src="img/icon_ofertas_laborales.png" alt="Ofertas Laborales" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
                                     <h1>Ofertas laborales</h1>
+									<div id="mas_oferta"></div>
                                 </div>
                             </div>
                         </li>
@@ -58,6 +59,7 @@
                                 <img src="img/icon_practicas_profesionales.png" alt="Practicas Laborales" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
                                     <h1>Prácticas profesionales</h1>
+									<div id="mas_practica"></div>
                                 </div>
                             </div>
                         </li>
@@ -66,6 +68,7 @@
                                 <img src="img/icon_noticias.png" alt="Noticias" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
                                     <h1>Noticias de carrera</h1>
+									<div id="mas_noticias"></div>
                                 </div>
                             </div>
                         </li>
@@ -82,6 +85,7 @@
                                 <img src="img/icon_eventos.png" alt="Eventos" class="img-circle col-xs-1 hidden-xs">
                                 <div class="col-xs-11">
                                     <h1>Eventos</h1>
+									<div id="mas_eventos"></div>
                                 </div>
                             </div>
                         </li>
@@ -95,11 +99,11 @@
             <!- Control Section->
             <section id="m_atrasP_adelanteP" class="main" style="display: none;">
                 <div class="row">
-                    <div id="m_atrasPage" class="soyBoton col-xs-6 text-left">
-                        Pagina Anterior
+                    <div class="col-xs-6 text-left">
+						<div id="m_atrasPage" class="btn btn-default botonesControl">Pagina Anterior</div>
                     </div>
-                    <div id="m_siguentePage" class="soyBoton col-xs-6 text-right">
-                        Pagina Siguiente
+                    <div class="col-xs-6 text-right">
+						<div id="m_siguentePage" class="btn btn-default botonesControl">Pagina Siguiente</div>
                     </div>
                 </div>
             </section>
@@ -108,11 +112,12 @@
         <!- Area de script!->
         <!- JQuery -><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <!- Bootstrap -><script src="js/bootstrap.min.js"></script>
-        <!- Spinner (png loading rotation sistem)-><script src="js/spinner.js"></script>
+        <!- Spinner (png loading rotation sistem)-><script src="js/Spinner.js"></script>
         <!- Pila Controler -><script src="js/PilaControl.js"></script>
         <!- Propios del sistema -><script src="js/eventos.js"></script>
         <!- Maquetas visuales ->
             <!- Titulos -><script src="js/maquetaTitulos.js"></script>
             <!- HorarioLabPDF-><script src="js/maquetaHorariosLab.js"></script>
+            <!- Controlador de Actualizaciones -><script src="js/statUpdate.js"></script>
     </body>
 </html>

@@ -1,3 +1,6 @@
+/**
+ * Clase de Control del Spinner
+ */
 (function() {
     SpriteSpinner = function(el, options){
         var self = this,

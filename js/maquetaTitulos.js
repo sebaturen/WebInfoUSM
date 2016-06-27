@@ -11,13 +11,13 @@ var accionPagina = 0;
  */
 function displayTitulos(jSONContent)
 {
-    console.log("DEBUG: displayTitulos: Llego para mostrar (resultado ajax): "+ jSONContent);
+    //console.log("DEBUG: displayTitulos: Llego para mostrar (resultado ajax): "+ jSONContent);
     if (jSONContent.length > 0)
     {
         accionPagina = MOVIMIENTO_PAGINA_NINGUNO;
         //Escondemos el menu general
         hideMenuUpAtras();
-        var textAut = '<ul class="list-group">';
+        var textAut = '<ul class="list-group titulosGroup">';
         jSONContent.forEach(function (data)
         {
             textAut += '<li class="list-group-item sectionTitle" data-tag="'+ data['ID'] +'">'+ data['title'] +'</li>';
@@ -35,8 +35,8 @@ function displayTitulos(jSONContent)
         {
             invertirAvance();
         }
-        console.log("PAG POST ACTUAL: "+ paginaActual);
-        console.log("DEBUG: displayTitulos: Error, tamaño cero del objeto!");
+        //console.log("PAG POST ACTUAL: "+ paginaActual);
+        //console.log("DEBUG: displayTitulos: Error, tamaño cero del objeto!");
         showError("No se ha encontrado nuevo contenido!");
         //REVISAR!
         //setActualPost(postAnterior.get()); //como no se entro a esta pagina, se define la anterior como actual
@@ -48,7 +48,7 @@ $("#m_atrasPage").click(function () {
     accionPagina = MOVIMIENTO_PAGINA_ATRAS;
     paginaActual += 1;
     //setActualPost(postActual);
-    getJsonContent(getUrlTitulos(), displayTitulos);
+    getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
 });
 $("#m_siguentePage").click(function () {
     accionPagina = MOVIMIENTO_PAGINA_ADELANTE;
@@ -56,7 +56,7 @@ $("#m_siguentePage").click(function () {
     {
         paginaActual -= 1;
         //setActualPost(postActual);
-        getJsonContent(getUrlTitulos(true), displayTitulos);
+        getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
     }
     else
     {
@@ -70,9 +70,11 @@ $("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
     getJsonContent(getUrlContent(idPost), displayContent);
 });
 
+/* Muestra el detalle del titulo selecionado */
 function displayContent(jSONContent)
 {
     setActualPost(POST_DETAIL_INFO);
+	hideMenuUpAtras();
     //Tomamos el contenido y mostramos
     $("#content").html(jSONContent['content']);
     $("#content").prepend("<h1>"+jSONContent['title']+"</h1>");

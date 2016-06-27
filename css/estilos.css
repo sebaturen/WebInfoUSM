@@ -1,30 +1,102 @@
+html, body
+{
+	font-family: Calibri;
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+.h1, h1
+{
+	font-size: 50px;
+}
+
+.h3, h3
+{
+    font-size: 36px;
+}
+
+.h4, h4
+{
+    font-size: 25px;
+}
+
+#wrapper
+{
+	min-height:100%;
+	position:relative;
+}
+
+#contentPage
+{
+	padding-bottom: 232px; /*tamanio footer*/
+}
 /*Header*/
 header
 {
     background-color: #2a6da1;
     background-image: url('../img/panel_cabecera.jpg');
+	background-size: auto 100%;
     background-repeat: no-repeat;
     color: white;
-    margin-bottom: 5%;
-}
-header a
-{
-    text-decoration: none;
-    color: white;
-}
-header a:focus, a:hover
-{
-    text-decoration: none !important;
-    color: white;
+    height: 202px;
 }
 /*Footer*/
 footer
 {
-    margin-top: 2%;
-    background-image: url('../img/panel_pie.png');
-    background-repeat: no-repeat;
-    width: 100%;
-    height: 232px;
+    background-image: url('../img/nube.png');
+	background-repeat: repeat no-repeat;
+	background-position: center;
+	width: 100%;
+	height: 232px;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+#contentPrincipal
+{
+	font-size: 245%;
+}
+
+.imgCenter
+{
+    height: 100%;
+}
+
+#iframeContent
+{
+	width: 100%;
+	height: 100%;
+	padding-bottom: 307px;
+	position: absolute;
+}
+#m_headMasck
+{
+	position: absolute;
+	width: 100%;
+	height: 202px;
+}
+
+#fechaActual
+{
+	color: #7ee9fb;
+	font-size: 35px;
+}
+
+.titPrinc
+{
+	font-size: 59px;
+	margin-bottom: -22px;
+	margin-top: 5px;
+}
+
+section#m_iFrameCerrar
+{
+	background-color: white;
+	margin-top: 202px;
+	height: 105px;
 }
 
 /*Estilo de fondo del menu principal*/
@@ -37,6 +109,72 @@ footer
     position: relative;
     display: block;
     padding: 10px 15px;
+	min-height: 200px;
+}
+/* Estilo menu principal */
+.row
+{
+    height: 89px;
+}
+.colImagen
+{
+	/*background-color: red;*/
+    text-align: center;
+    height: 100%;
+}
+.colTitulos, .imgLogMenu
+{
+	/*height: 100%;*/
+	/*background-color: blue;*/
+}
+.textPrincipalMenu
+{
+	height: 60%;
+    /*background-color: green;    */
+	font-size: 88px;
+    font-weight: bold;
+}
+.textMasUno
+{
+	/*background-color: #5F5F51;*/
+    height: 40%;
+    font-size: 26px;
+    font-weight: bold;
+	color: #0077d6
+}
+@media (max-width: 500px)
+{
+  .textPrincipalMenu
+  {
+	  font-size: 31px;
+	  font-weight: bold;
+	  line-height: 26px;
+  }
+  .textMasUno
+  {
+	  font-size: 22px;
+      font-weight: bold;
+      line-height: 23px;
+  }
+}
+
+/*Estilo para botones de control, atras, pagina atras, pagina adelante*/
+.botonesControl
+{
+    background-color: #5bb2f7;
+    color: white;
+	font-size: 148%;
+}
+@media (min-width: 500px)
+{
+	.botonesControl
+	{
+	    padding: 10px 67px;
+	}
+}
+.titulosGroup li
+{
+	cursor: pointer;
 }
 
 /*Estilo para poner el cursor como boton*/
@@ -57,6 +195,12 @@ footer
     width: 100%;
     font-size: 20px;
 }
+.msngDiv
+{
+    padding-left: 5%;
+    padding-right: 5%;
+    width: 100%;
+}
 
 /* PNG Loading ... */
 .sprite-spinner
@@ -65,6 +209,11 @@ footer
     position: relative;
     display:inline-block;
     text-align:left;
+}
+
+ul.list-group.titulosGroup
+{
+	font-size: 36px;
 }
 
 /*Fondo para la carga...*/

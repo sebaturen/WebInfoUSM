@@ -60,7 +60,11 @@ function getJsonContent(url, callBackFunction, loadDiv = true)
         .fail(function (eCode) {
 			if (loadDiv)
 			{
+<<<<<<< HEAD
 				showError("Error Conexion - C: 1");
+=======
+				showError("Error Conexion - C: 1");				
+>>>>>>> origin/master
 			}
         })
         .always(function () {
@@ -205,6 +209,7 @@ $("#m_atras").click(function ()
         }
     }
     //console.log(postAnterior);
+<<<<<<< HEAD
 });
 //Cerrar iframe
 $("#m_iFrameCerrar").click(function() {
@@ -212,6 +217,8 @@ $("#m_iFrameCerrar").click(function() {
 	$("#iframeExternalLink").attr("src", "");
 	//Mostrando contenido
 	$("#contentPage").show();
+=======
+>>>>>>> origin/master
 });
 
 function loadIframe(url)
@@ -351,6 +358,7 @@ $( document ).ready(function()
 	setHora();
     //Revisa nuevas publicaciones...
     newUpdateController();
+<<<<<<< HEAD
 });
 //Captura de Click para todos los tag 'a'
 $("#contentPrincipal").on("click", "a", function (obCliked) {
@@ -363,3 +371,30 @@ $("#contentPrincipal").on("click", "a", function (obCliked) {
 	//console.log("Link: "+ urlHref);
 	//alert('click!');
 });
+=======
+});
+
+/* Set Hora */
+function setHora()
+{
+    $("#fechaActual").text(controlHora());	
+}
+/* Genera la hora actual para poner en la pagina costado derecho. */
+function controlHora()
+{
+    var fechaObject = new Date();
+    //set Dia
+    var diaNum = fechaObject.getDate();
+    var diaSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    var diaText = diaSemana[fechaObject.getDay()];
+    //set Mes
+    var mesAnio = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    var mesText = mesAnio[fechaObject.getMonth()];
+
+    var hora = fechaObject.getHours();
+    var min = fechaObject.getMinutes();
+    if (hora < 10) hora = '0' + hora;
+    if (min < 10) min = '0' + min;
+    return diaText +" "+ diaNum +" de "+ mesText +", "+ hora +':'+ min;
+}
+>>>>>>> origin/master

@@ -6,8 +6,14 @@ function newUpdateController()
 
 function intervalUpdate()
 {
+<<<<<<< HEAD
 	setHora();
 	setMasUno();
+=======
+    console.log("Hola mundo!");
+	setHora();
+	setMasUno();	
+>>>>>>> origin/master
 }
 
 function setMasUno()
@@ -29,6 +35,10 @@ function setMasUno()
 
 function controlEventos(jSONContent)
 {
+<<<<<<< HEAD
+=======
+	console.log("Eventos");
+>>>>>>> origin/master
 	var textoMasUno = getTextMasUno(jSONContent);
 	if (textoMasUno != null)
 	{
@@ -38,6 +48,10 @@ function controlEventos(jSONContent)
 
 function controOfertasLaborales(jSONContent)
 {
+<<<<<<< HEAD
+=======
+	console.log("OfertasLab");
+>>>>>>> origin/master
 	var textoMasUno = getTextMasUno(jSONContent);
 	if (textoMasUno != null)
 	{
@@ -47,6 +61,10 @@ function controOfertasLaborales(jSONContent)
 
 function controlPracticas(jSONContent)
 {
+<<<<<<< HEAD
+=======
+	console.log("Practicas");
+>>>>>>> origin/master
 	var textoMasUno = getTextMasUno(jSONContent);
 	if (textoMasUno != null)
 	{
@@ -56,6 +74,10 @@ function controlPracticas(jSONContent)
 
 function controlNoticias(jSONContent)
 {
+<<<<<<< HEAD
+=======
+	console.log("Noticias");
+>>>>>>> origin/master
 	var textoMasUno = getTextMasUno(jSONContent);
 	if (textoMasUno != null)
 	{
@@ -66,11 +88,19 @@ function controlNoticias(jSONContent)
 /* Controlando la cant de post (+N) */
 function getTextMasUno(jSONContent)
 {
+<<<<<<< HEAD
 	var fechaActual = new Date();//Date("2016-03-04T10:08:18");
 	var cantMismoDia = 0;
 	var lastTitulo = null;
 	//Recorremos las noticias
 	if (jSONContent.length > 0)
+=======
+	var fechaActual = new Date("2016-03-04T10:08:18");
+	var cantMismoDia = 0;
+	var lastTitulo = null;
+	//Recorremos las noticias
+	if (jSONContent.length > 0) 
+>>>>>>> origin/master
 	{
 		console.log("Lllamdo!");
 		console.log(jSONContent);
@@ -91,9 +121,15 @@ function getTextMasUno(jSONContent)
 				//Contamos
 				cantMismoDia += 1;
 			}
+<<<<<<< HEAD
 		});
 	}
 
+=======
+		});	
+	}
+	
+>>>>>>> origin/master
 	//Revisamos de que sea mayor que 1, para poner el +N
 	var output = null;
 	if (cantMismoDia > 0)
@@ -101,6 +137,7 @@ function getTextMasUno(jSONContent)
 		output = "(+"+ cantMismoDia +") "+ lastTitulo;
 	}
 	return output;
+<<<<<<< HEAD
 }
 
 /* Set Hora */
@@ -126,3 +163,6 @@ function controlHora()
     if (min < 10) min = '0' + min;
     return diaText +" "+ diaNum +" de "+ mesText +", "+ hora +':'+ min;
 }
+=======
+}
+>>>>>>> origin/master

@@ -27,6 +27,20 @@ if(strpos($headers, 'X-Frame-Options: deny')>-1||strpos($headers, 'X-Frame-Optio
 }
 $httpcode= curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
-echo json_encode(array('httpcode'=>$httpcode, 'error'=>$error));
+
+$tipeImg = false;
+if (!$error)
+{
+    //".*(\.[jJ][pP][gG])|.*(\.[pP][nN][gG])|.*(\.[gG][iI][fF])|.*(\.[jJ][pP][eE][gG])|.*(\.[bB][mM][pP])"
+    if (mb_stripos($urlhere, ".jpg") ||
+        mb_stripos($urlhere, ".png") ||
+        mb_stripos($urlhere, ".gif") ||
+        mb_stripos($urlhere, ".bmp") ||
+        mb_stripos($urlhere, ".jpeg"))
+    {
+        $tipeImg = true;
+    }
+}
+echo json_encode(array('httpcode'=>$httpcode, 'error'=>$error, 'typeImg'=>$tipeImg));
 
 ?>

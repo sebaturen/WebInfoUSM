@@ -60,11 +60,7 @@ function getJsonContent(url, callBackFunction, loadDiv = true)
         .fail(function (eCode) {
 			if (loadDiv)
 			{
-<<<<<<< HEAD
 				showError("Error Conexion - C: 1");
-=======
-				showError("Error Conexion - C: 1");				
->>>>>>> origin/master
 			}
         })
         .always(function () {
@@ -118,7 +114,7 @@ function hideMenuUpAtras()
     if (postActual == POST_HOME)
     {
         $("#m_atras").hide();
-        $("#menuPrincipal").show();
+		showMenuEfect();
         $("#contentPrincipal").hide();
         $("#m_atrasP_adelanteP").hide();
         $("#content").text('');
@@ -209,7 +205,6 @@ $("#m_atras").click(function ()
         }
     }
     //console.log(postAnterior);
-<<<<<<< HEAD
 });
 //Cerrar iframe
 $("#m_iFrameCerrar").click(function() {
@@ -217,8 +212,6 @@ $("#m_iFrameCerrar").click(function() {
 	$("#iframeExternalLink").attr("src", "");
 	//Mostrando contenido
 	$("#contentPage").show();
-=======
->>>>>>> origin/master
 });
 
 function loadIframe(url)
@@ -239,8 +232,15 @@ function chkIframe(url)
 	.done(function( data ) {
 		if (data.error == false)
 		{
-			//cargar
-			$("#iframeExternalLink").attr("src", url);
+			var urlCarga = url;
+			if (data.typeImg == true)
+			{
+				//cargar IMG
+				var urlCarga = "showImg.php?url="+ url;
+			}
+			//Cargando....
+			$("#iframeExternalLink").attr("src", urlCarga);
+			//Mostrando Iframe box...
 			$("#iframeBox").show();
 			//Ocultando contenido
 			$("#contentPage").hide();
@@ -315,7 +315,7 @@ function practicaLaboralGenerator()
 /* Genera el url para consultar a la API sobre los titulos de cada seccion */
 function getUrlTitulos(apiLocation)
 {
-	console.log("apiLocation: "+ apiLocation);
+	//console.log("apiLocation: "+ apiLocation);
     //Generando URL:
     var url = URL_API + apiLocation
         + FILTRO_POST_POR_PAG + POST_POR_PAGINA
@@ -356,45 +356,19 @@ $( document ).ready(function()
 {
     //Toma la fecha actual
 	setHora();
+	//Mostrando Menu
+	showMenuEfectFirst();
     //Revisa nuevas publicaciones...
     newUpdateController();
-<<<<<<< HEAD
 });
 //Captura de Click para todos los tag 'a'
 $("#contentPrincipal").on("click", "a", function (obCliked) {
 	obCliked.preventDefault();
-    var urlHref = obCliked.target.getAttribute('href');
-	loadIframe(urlHref);
+    var urlHref = obCliked.currentTarget.getAttribute('href');
+	console.log(obCliked);
+	if (urlHref != null)
+	{
+		loadIframe(urlHref);
+	}
 	return false;
-    //getJsonContent(getUrlContent(idPost), displayContent);
-	//console.log(obCliked);
-	//console.log("Link: "+ urlHref);
-	//alert('click!');
 });
-=======
-});
-
-/* Set Hora */
-function setHora()
-{
-    $("#fechaActual").text(controlHora());	
-}
-/* Genera la hora actual para poner en la pagina costado derecho. */
-function controlHora()
-{
-    var fechaObject = new Date();
-    //set Dia
-    var diaNum = fechaObject.getDate();
-    var diaSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-    var diaText = diaSemana[fechaObject.getDay()];
-    //set Mes
-    var mesAnio = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-    var mesText = mesAnio[fechaObject.getMonth()];
-
-    var hora = fechaObject.getHours();
-    var min = fechaObject.getMinutes();
-    if (hora < 10) hora = '0' + hora;
-    if (min < 10) min = '0' + min;
-    return diaText +" "+ diaNum +" de "+ mesText +", "+ hora +':'+ min;
-}
->>>>>>> origin/master

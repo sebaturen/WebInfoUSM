@@ -20,7 +20,19 @@ function displayTitulos(jSONContent)
         var textAut = '<ul class="list-group titulosGroup">';
         jSONContent.forEach(function (data)
         {
-            textAut += '<li class="list-group-item sectionTitle" data-tag="'+ data['ID'] +'">'+ data['title'] +'</li>';
+            var fechaNoticiaObject = new Date(data['date']);
+            var fechaNoticia = "";
+            if (fechaNoticiaObject.getDate() < 10) fechaNoticia += "0";
+            fechaNoticia += fechaNoticiaObject.getDate() +"/";
+            if (fechaNoticiaObject.getMonth() < 10) fechaNoticia += "0";
+            fechaNoticia += fechaNoticiaObject.getMonth() +"/" + fechaNoticiaObject.getFullYear();
+            var classNoticiaDelDia = "";
+            if(isSameData(data['date']))
+            {
+                classNoticiaDelDia += "noticiaDelDia";
+            }
+            var tituloNoticia = cortarTexto(data['title'], 50);
+            textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi">'+ fechaNoticia +"</fecha> "+ tituloNoticia +'</li>';
         });
         textAut += '</ul>';
         $("#content").html(textAut);

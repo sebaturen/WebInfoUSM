@@ -64,10 +64,35 @@ function controlNoticias(jSONContent)
 	}
 }
 
+/* Validando fecha */
+function isSameData(fechaComparar)
+{
+	var fechaActual = new Date(); //Date("2016-07-05T10:08:18");
+	//Tomamos las noticias y revisamos que sean de hoy
+	var fechaObject = new Date(fechaComparar);
+	//Comprobamos año, mes y dia
+	if (	(fechaObject.getFullYear() 	== fechaActual.getFullYear())
+		&&	(fechaObject.getMonth() 	== fechaActual.getMonth())
+		&&	(fechaObject.getDate() 		== fechaActual.getDate())		)
+	{
+		return true;
+	}
+	return false;
+}
+
+function cortarTexto(text, size)
+{
+	if (text.length > size)
+	{
+		text = text.substring(0, 40);
+		text += "..";
+	}
+	return text;
+}
+
 /* Controlando la cant de post (+N) */
 function getTextMasUno(jSONContent)
 {
-	var fechaActual = new Date();//Date("2016-03-04T10:08:18");
 	var cantMismoDia = 0;
 	var lastTitulo = null;
 	//Recorremos las noticias
@@ -77,17 +102,12 @@ function getTextMasUno(jSONContent)
 		//console.log(jSONContent);
 		jSONContent.forEach(function (postInfo)
 		{
-			//Tomamos las noticias y revisamos que sean de hoy
-			var fechaObject = new Date(postInfo['date']);
-			//Comprobamos año, mes y dia
-			if (	(fechaObject.getFullYear() 	== fechaActual.getFullYear())
-				&&	(fechaObject.getMonth() 	== fechaActual.getMonth())
-				&&	(fechaObject.getDate() 		== fechaActual.getDate())		)
+			if (isSameData(postInfo['date']))
 			{
 				//Si es el primer dia tomado, guardamos el titulo
 				if (cantMismoDia == 0)
 				{
-					lastTitulo = postInfo['title'];
+					lastTitulo = cortarTexto(postInfo['title'], 40);
 				}
 				//Contamos
 				cantMismoDia += 1;

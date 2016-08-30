@@ -27,7 +27,7 @@ function displayHorarioLab(jSONContent)
         {
             var inicioPDF = data.search("http://");
             var finPDF = data.search(".pdf"); //Se le debe sumar 4 para que guarde la posicion hasta que termina la extencion
-            textAut += '<li class="list-group-item"><a href="'+ data.substring(inicioPDF, finPDF+4) +'">Horario Laboratorio '+ i +"</a></li>";
+            textAut += '<a href="'+ data.substring(inicioPDF, finPDF+4) +'"><li class="list-group-item">Horario Laboratorio '+ i +"</li></a>";
             i++;
         });
         textAut += '</ul>';

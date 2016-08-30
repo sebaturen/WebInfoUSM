@@ -1,5 +1,8 @@
 html, body
 {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
 	font-family: Calibri;
 	margin:0;
 	padding:0;
@@ -103,6 +106,14 @@ footer
 	font-size: 35px;
 }
 
+.noticiaDelDia
+{
+	background-color: red;
+}
+.fechaLi {
+    font-size: 20px;
+}
+
 .titPrinc
 {
 	font-size: 59px;
@@ -164,10 +175,11 @@ section#m_iFrameCerrar
 .textMasUno
 {
 	/*background-color: #5F5F51;*/
-    height: 40%;
-    font-size: 26px;
+	height: 40%;
+    font-size: 29px;
+    margin-top: -10px;
     font-weight: bold;
-	color: #0077d6
+    color: white;
 }
 @media (max-width: 500px)
 {

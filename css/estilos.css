@@ -106,9 +106,21 @@ footer
 	font-size: 35px;
 }
 
+.btn-default:hover
+{
+	background-color: #5bb2f7;
+	    border-color: #ccc;
+		color: white;
+}
 .noticiaDelDia
 {
-	background-color: #8fc7f3;
+	background-color: #5bb2f7;
+	color: white;
+}
+
+.titloNoticiaDetail
+{
+	color: #4d8fc3;
 }
 
 .fechaLi {

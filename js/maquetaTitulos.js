@@ -20,19 +20,14 @@ function displayTitulos(jSONContent)
         var textAut = '<ul class="list-group titulosGroup">';
         jSONContent.forEach(function (data)
         {
-            var fechaNoticiaObject = new Date(data['date']);
-            var fechaNoticia = "";
-            if (fechaNoticiaObject.getDate() < 10) fechaNoticia += "0";
-            fechaNoticia += fechaNoticiaObject.getDate() +"/";
-            if (fechaNoticiaObject.getMonth() < 10) fechaNoticia += "0";
-            fechaNoticia += fechaNoticiaObject.getMonth() +"/" + fechaNoticiaObject.getFullYear();
+            var fechaNoticia = generateFechaString(new Date(data['date']));
             var classNoticiaDelDia = "";
             if(isSameData(data['date']))
             {
                 classNoticiaDelDia += "noticiaDelDia";
             }
             var tituloNoticia = cortarTexto(data['title'], 50);
-            textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi">'+ fechaNoticia +"</fecha> "+ tituloNoticia +'</li>';
+		textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi">'+ fechaNoticia +"</fecha>&#124; "+ tituloNoticia +'</li>';
         });
         textAut += '</ul>';
         $("#content").html(textAut);
@@ -89,5 +84,16 @@ function displayContent(jSONContent)
 	hideMenuUpAtras();
     //Tomamos el contenido y mostramos
     $("#content").html(jSONContent['content']);
-    $("#content").prepend("<h1>"+jSONContent['title']+"</h1>");
+	$("#content").prepend("<p class='fechaLi'>"+ generateFechaString(new Date(jSONContent['date'])) +"</p>");
+    $("#content").prepend("<h1 class='titloNoticiaDetail'>"+jSONContent['title']+"</h1>");
+}
+
+function generateFechaString(dataObj)
+{	
+	var fechaOut = "";
+	if (dataObj.getDate() < 10) fechaOut += "0";
+	fechaOut += dataObj.getDate() +"-";
+	if (dataObj.getMonth() < 10) fechaOut += "0";
+	fechaOut += dataObj.getMonth() +"-" + dataObj.getFullYear();
+	return fechaOut;
 }

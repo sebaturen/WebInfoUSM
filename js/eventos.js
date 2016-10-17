@@ -2,13 +2,15 @@
  * Constantes
  */
 //Api:
-const URL_API 					= "http://www.inf.jmc.utfsm.cl/wp-json/";
+//const URL_API 					= "http://www.inf.jmc.utfsm.cl/wp-json/";
+const URL_API 					= "http://turensoft.com/jmcInfo/wp/wp-json/";
 const OFERTAS_API_LOCATION      = "posts?type[]=laborales";
 const PRACTICAS_API_LOCATION    = "posts?type[]=practicas";
 const NOTICAS_API_LOCATION      = "posts?";
 const HORARIO_LAB_API_LOCATION  = "pages/83";
 const EVENTOS_API_LOCATION      = "posts?type[]=eventos";
 const POST_API_DETAIL			= "posts/";
+const POST_META_DETAIL			= "postmeta/";
 //Varias
 const JS_FOLDER_LOCATION        = "js/";
 //Filtros: (generadores de URL)
@@ -24,6 +26,7 @@ const POST_NOTICIAS             = 3;
 const POST_HORARIO_LAB          = 4;
 const POST_EVENTOS              = 5;
 const POST_DETAIL_INFO          = 6;
+const POST_VIDEO_VIEW			= 7;
 
 /**
  * Variables de entorno:
@@ -124,7 +127,7 @@ function hideMenuUpAtras()
         $("#m_atras").show();
         $("#menuPrincipal").hide();
         $("#contentPrincipal").show();
-        if (postActual != POST_DETAIL_INFO && postActual != POST_HORARIO_LAB)
+        if (postActual != POST_DETAIL_INFO && postActual != POST_HORARIO_LAB && postActual != POST_VIDEO_VIEW)
         {
             $("#m_atrasP_adelanteP").show();
         }
@@ -190,6 +193,8 @@ $("#m_atras").click(function ()
         setActualPost(POST_HOME);
         hideMenuUpAtras();
         postAnterior.clear();
+		//Reanuda la reproduccion de los videos
+		startVideo();
     }
     else
     {
@@ -208,11 +213,31 @@ $("#m_atras").click(function ()
 });
 //Cerrar iframe
 $("#m_iFrameCerrar").click(function() {
+	cerrarIframe();
+});
+
+function cerrarIframe()
+{
 	$("#iframeBox").hide();
-	$("#iframeExternalLink").attr("src", "");
+	$("#iframeContent").html('<iframe id="iframeExternalLink" name="iframe1" frameborder="0" src="" style="width: 100%; height: 100%;"></iframe>');
 	//Mostrando contenido
 	$("#contentPage").show();
-});
+	if (postActual == POST_VIDEO_VIEW)
+	{
+		setActualPost(POST_HOME);
+		startVideo();
+	}
+}
+
+function setContentIframe(htmlContent)
+{
+	//Cargando....
+	$("#iframeContent").html(htmlContent);
+	//Mostrando Iframe box...
+	$("#iframeBox").show();
+	//Ocultando contenido
+	$("#contentPage").hide();
+}
 
 function loadIframe(url)
 {
@@ -230,24 +255,33 @@ function chkIframe(url)
 		loadingDiv();
 	})
 	.done(function( data ) {
+		//Revisa si la pagina puede ser cargada en iframe
 		if (data.error == false)
 		{
 			var urlCarga = url;
 			if (data.typeImg == true)
 			{
-				//cargar IMG
 				var urlCarga = "showImg.php?url="+ url;
 			}
-			//Cargando....
-			$("#iframeExternalLink").attr("src", urlCarga);
-			//Mostrando Iframe box...
-			$("#iframeBox").show();
-			//Ocultando contenido
-			$("#contentPage").hide();
+			if (postActual == POST_HORARIO_LAB || data.typeImg == true)
+			{
+				//Cargando....
+				$("#iframeExternalLink").attr("src", urlCarga);
+				//Mostrando Iframe box...
+				$("#iframeBox").show();
+				//Ocultando contenido
+				$("#contentPage").hide();
+			}
+			else
+			{
+				//error
+				showError("No esta permitido ver esta pagina.");
+			}
 		}
-		else {
+		else
+		{
 			//error
-			showError("Esta pagina no puede ser cargada...");
+			showError("No esta permitido ver esta pagina.");
 		}
 
 	});
@@ -333,6 +367,14 @@ function getUrlContent(idPost)
     return url;
 }
 
+/* Genera el URL para consultar los meta del post*/
+function getUrlMetaPost(idPost)
+{
+	//Generando URL...
+	var url = URL_API + POST_META_DETAIL + idPost;
+	return url;
+}
+
 /* Entrega la posicion de la API segun la posicion interna*/
 function getApiLocation(post)
 {
@@ -365,7 +407,6 @@ $( document ).ready(function()
 $("#contentPrincipal").on("click", "a", function (obCliked) {
 	obCliked.preventDefault();
     var urlHref = obCliked.currentTarget.getAttribute('href');
-	console.log(obCliked);
 	if (urlHref != null)
 	{
 		loadIframe(urlHref);

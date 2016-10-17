@@ -168,6 +168,7 @@ function showMenuEfect()
 	$("#m_noticias_carrera").css('opacity', '0');
 	$("#m_horario_labs").css('opacity', '0');
 	$("#m_eventos").css('opacity', '0');
+	$("#m_videos").css('opacity', '0');
 	$("#mascara").css('display', 'none');
 
 	//Moviendo todo un poco hacia abajo...
@@ -176,9 +177,10 @@ function showMenuEfect()
 	$("#m_noticias_carrera").css('margin-top', '50px');
 	$("#m_horario_labs").css('margin-top', '50px');
 	$("#m_eventos").css('margin-top', '50px');
+	$("#m_videos").css('margin-top', '50px');
 
 	//Desocultando mascara...
-	clearDatMove(["#m_oferta_laboral", "#m_practica_profecional", "#m_noticias_carrera", "#m_horario_labs", "#m_eventos"]);
+	clearDatMove(["#m_oferta_laboral", "#m_practica_profecional", "#m_noticias_carrera", "#m_horario_labs", "#m_eventos", "#m_videos"]);
 }
 
 var listInterval = [];
@@ -218,7 +220,10 @@ function sacarMascara(args)
 var idleTime = 0;
 function timUpdInter() {
     //Increment the idle time counter every minute.
-    var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+	if (postActual != POST_HOME)
+	{
+    	var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+	}
 
     //Zero the idle timer on mouse movement.
     $(this).mousemove(function (e) {
@@ -231,7 +236,7 @@ function timUpdInter() {
 
 function timerIncrement() {
     idleTime = idleTime + 1;
-	console.log("Idle Time: "+ idleTime);
+	//console.log("Idle Time: "+ idleTime);
     if (idleTime > 1) { // 20 minutes
         window.location.reload();
     }

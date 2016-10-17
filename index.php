@@ -71,7 +71,7 @@
                 <section id="menuPrincipal" class="main">
                     <div id="mascara" <?php if (!$pEntrada) { echo "style='display: none;'"; }?>></div>
                     <div>
-                        <ul class="list-group">
+                        <ul class="list-group lGrupMenu">
                             <li id="m_oferta_laboral" class="row-eq-height soyBoton m_list_group">
                                 <div class="row">
     								<div class="col-sm-2 hidden-xs colImagen">
@@ -127,6 +127,32 @@
     								</div>
                                 </div>
                             </li>
+                            <li id="m_videos" class="m_list_group">
+                                <div class="row">
+    								<div class="col-sm-2 hidden-xs colImagen">
+    									<img src="img/icon_videos.png" alt="Videos" class="img-circle imgLogMenu">
+    								</div>
+                                    <div class="col-sm-2 videos_text">
+                                            <div class="textVidTit">
+                                                Canales
+                                            </div>
+                                            <div class="textMasUno">
+                                                - Tecnológico<br/>
+                                                - Gamer<br/>
+                                            </div>
+                                    </div>
+    								<div class="colTitulos videos">
+                                        <div id="videoIncial">
+                                            <div id="contorl_Izq" class="control_videos"></div>
+                                            <div id="videoIzq" class="videoMuestra"></div>
+                                        </div>
+                                        <div id="videoSecundario">
+                                            <div id="contorl_Der" class="control_videos"></div>
+                                            <div id="videoDer" class="videoMuestra"></div>
+                                        </div>
+    								</div>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                 </section>
@@ -161,5 +187,6 @@
             <!-- Titulos --><script src="js/maquetaTitulos.js"></script>
             <!-- HorarioLabPDF--><script src="js/maquetaHorariosLab.js"></script>
             <!-- Controlador de Actualizaciones --><script src="js/statUpdate.js"></script>
+        <!-- YouTubeAPI Control --><script src="js/youTubeController.js"></script>
     </body>
 </html>

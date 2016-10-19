@@ -153,14 +153,23 @@ function showMenuEfectFirst()
 {
 	if ($("#lastSession").data("content") == 1)
 	{
+		showMenuEfectLoad();
+	}
+}
+
+//Ejecuta el efecto de muestra de menu solo si no esta deactivado
+function showMenuEfectLoad()
+{
+	//Mostrando section menu
+	$("#menuPrincipal").css('display', 'block');
+	if ($("#runEfectCarga").data("content") != 2)
+	{
 		showMenuEfect();
 	}
 }
 
 function showMenuEfect()
 {
-	//Mostrando section menu
-	$("#menuPrincipal").css('display', 'block');
 
 	//Desactivando mascara y ocultando resto:
 	$("#m_oferta_laboral").css('opacity', '0');

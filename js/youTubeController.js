@@ -81,7 +81,7 @@
 
         setActualPost(POST_VIDEO_VIEW);
         //Tomamos el contenido y mostramos
-        setContentIframe("<div id='control_full_video'></div><div id='videoFull'></div>");
+        setContentIframe("<div id='control_full_video' class='noselect'></div><div id='videoFull'></div>");
         fullPlayer = new YT.Player('videoFull', {
             videoId: vData.video_id,
             playerVars: {
@@ -153,10 +153,12 @@
     $("#iframeContent").on("click", "#control_full_video", function (obCliked) {
         if (estadoPausa)
         {
+			$("#control_full_video").html("");
             fullPlayer.playVideo();
         }
         else
         {
+			$("#control_full_video").html("<p style='background-color: rgba(0, 0, 0, 0.45);'>Video en Pausa</p>");
             fullPlayer.pauseVideo();
         }
     });

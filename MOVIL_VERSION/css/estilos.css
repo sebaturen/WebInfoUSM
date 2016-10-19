@@ -9,19 +9,10 @@ html, body
 	height:100%;
 }
 
-.h1, h1
+body
 {
-	font-size: 50px;
-}
-
-.h3, h3
-{
-    font-size: 36px;
-}
-
-.h4, h4
-{
-    font-size: 25px;
+	background-image: url('../img/frontis.jpg');
+	background-size: cover;
 }
 
 #wrapper
@@ -30,19 +21,12 @@ html, body
 	position:relative;
 }
 
-#contentPage
-{
-	padding-bottom: 272px; /*tamanio footer*/
-}
 /*Header*/
 header
 {
-    background-color: #2a6da1;
-    background-image: url('../img/panel_cabecera.jpg');
-	background-size: auto 100%;
-    background-repeat: no-repeat;
+    background-color: #266399;
     color: white;
-    height: 202px;
+	text-align: center;
 }
 /*Footer*/
 footer
@@ -53,11 +37,12 @@ footer
     -o-background-size: cover;
     background-size: cover;*/
 	width: 100%;
-	height: 272px;
 	text-align: center;
 	position: absolute;
 	bottom: 0;
 	left: 0;
+	color: white;
+	background-color: #34495E;
 }
 
 #fondoImg
@@ -74,6 +59,17 @@ footer
 	z-index: -1;
 }
 
+#contentPage
+{
+	padding-bottom: 5em;
+}
+
+#content
+{
+	background-color: white;
+    padding: 0.2em;
+}
+
 #contentPrincipal
 {
 	font-size: 245%;
@@ -84,6 +80,10 @@ footer
 .lGrupMenu
 {
 	list-style-type: none;
+}
+.lGrupMenu li
+{
+	margin-bottom: 0.2em;
 }
 .imgCenter
 {
@@ -156,19 +156,13 @@ section#m_iFrameCerrar
 /*Estilo de fondo del menu principal*/
 .m_list_group
 {
-    background-color: #5bb2f7;
+    background-color: #006CCC;
     color: white;
-    border-radius: 17px;
-    margin-bottom: 18px;
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-	min-height: 200px;
+	padding: 9%;
 }
 /* Estilo menu principal */
 .row
 {
-    height: 89px;
 }
 .colImagen
 {
@@ -184,9 +178,6 @@ section#m_iFrameCerrar
 }
 .textPrincipalMenu
 {
-	height: 60%;
-    /*background-color: green;    */
-	font-size: 88px;
     font-weight: bold;
 }
 .textMasUno
@@ -198,28 +189,16 @@ section#m_iFrameCerrar
     font-weight: bold;
     color: white;
 }
-@media (max-width: 500px)
-{
-  .textPrincipalMenu
-  {
-	  font-size: 31px;
-	  font-weight: bold;
-	  line-height: 26px;
-  }
-  .textMasUno
-  {
-	  font-size: 22px;
-      font-weight: bold;
-      line-height: 23px;
-  }
-}
+
 
 /*Estilo para botones de control, atras, pagina atras, pagina adelante*/
 .botonesControl
 {
-    background-color: #5bb2f7;
+    background-color: #006CCC;
     color: white;
 	font-size: 148%;
+    border: none;
+    border-radius: 0;
 }
 @media (min-width: 500px)
 {
@@ -231,6 +210,7 @@ section#m_iFrameCerrar
 .titulosGroup li
 {
 	cursor: pointer;
+    border-radius: 0 !important;
 }
 
 /*Estilo para poner el cursor como boton*/
@@ -238,13 +218,7 @@ section#m_iFrameCerrar
 {
     cursor: pointer;
 }
-/*Estilo custome segun seccion:*/
-#m_oferta_laboral { box-shadow: 0 9px #d45049; }
-#m_noticias_carrera { box-shadow: 0 9px #166cba; }
-#m_practica_profecional { box-shadow: 0 9px #7e4ecd; }
-#m_horario_labs { box-shadow: 0 9px #f3d35e; }
-#m_eventos { box-shadow: 0 9px #2f9e8e; }
-#m_videos { box-shadow: 0 9px #2690e4; }
+
 
 /* Boton Cerrar Mensaje de Error*/
 .btnCancel
@@ -270,7 +244,7 @@ section#m_iFrameCerrar
 
 ul.list-group.titulosGroup
 {
-	font-size: 36px;
+	font-size: 65%;
 }
 
 /* Control de videos: */

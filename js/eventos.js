@@ -117,7 +117,7 @@ function hideMenuUpAtras()
     if (postActual == POST_HOME)
     {
         $("#m_atras").hide();
-		showMenuEfect();
+		showMenuEfectLoad();
         $("#contentPrincipal").hide();
         $("#m_atrasP_adelanteP").hide();
         $("#content").text('');

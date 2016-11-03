@@ -186,8 +186,37 @@ function invertirAvance()
 //Atras:
 $("#m_atras").click(function ()
 {
-    var posMove = postAnterior.remove();
+	//Removiendo pila
+	var posMove = postAnterior.remove();
 
+	//hash HTML
+	var hashA = window.location.hash;
+	hashA = hashA.split("/");
+	console.log("Tamaño: "+ hashA.length);
+	console.log(hashA);
+	if (hashA.length > 1)
+	{
+		hashA = hashA.splice(0, hashA.length-1);
+		var i = hashA.length-1;
+		var hashF = '';
+		hashA.forEach(function(hash)
+		{
+			hashF += hash;
+			if (i != 0)
+			{
+				hashF += '/';
+			}
+			i--;
+		});
+		window.location.hash = hashF;
+	}
+	else
+	{
+		console.log("nada!");
+		window.location.hash = '';
+	}
+
+	//contenido
     if (posMove == POST_HOME)
     {
         setActualPost(POST_HOME);
@@ -289,6 +318,7 @@ function chkIframe(url)
 
 //Noticias:
 $("#m_noticias_carrera").click(function () {
+	window.location.hash = 'noticias';
     noticiasGenerator();
 });
 function noticiasGenerator()
@@ -301,6 +331,7 @@ function noticiasGenerator()
 }
 //Eventos:
 $("#m_eventos").click(function () {
+	window.location.hash = 'eventos';
     eventosGenerator();
 });
 function eventosGenerator()
@@ -313,7 +344,8 @@ function eventosGenerator()
 }
 //Ofertas laborales
 $("#m_oferta_laboral").click(function () {
-    ofertLaboralGenerator();
+	window.location.hash = 'offLaboral';
+	ofertLaboralGenerator();
 });
 function ofertLaboralGenerator()
 {
@@ -324,6 +356,7 @@ function ofertLaboralGenerator()
 }
 //Horario laboratorios
 $("#m_horario_labs").click(function () {
+	window.location.hash = 'horarioLab';
     horarioLabGenerator();
 });
 function horarioLabGenerator()
@@ -335,6 +368,7 @@ function horarioLabGenerator()
 }
 //Practicas laborales
 $("#m_practica_profecional").click(function () {
+	window.location.hash = 'practica';
     practicaLaboralGenerator();
 });
 

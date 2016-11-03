@@ -72,7 +72,7 @@
                     <div id="mascara" <?php if (!$pEntrada) { echo "style='display: none;'"; }?>></div>
                     <div>
                         <ul class="list-group lGrupMenu">
-                            <li id="m_oferta_laboral" class="row-eq-height soyBoton m_list_group">
+                            <li id="m_oferta_laboral" class="row-eq-height m_list_group">
                                 <div class="row">
     								<div class="col-sm-2 hidden-xs colImagen">
     									<img src="img/icon_ofertas_laborales.png" alt="Ofertas Laborales" class="img-circle imgLogMenu">

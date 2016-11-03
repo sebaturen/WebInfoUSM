@@ -168,7 +168,7 @@ section#m_iFrameCerrar
 /* Estilo menu principal */
 .row
 {
-    height: 89px;
+    height: 100%;
 }
 .colImagen
 {
@@ -295,7 +295,7 @@ ul.list-group.titulosGroup
 {
 	width: 100%;
 	height: 100%;
-	position: absolute;	
+	position: absolute;
     text-align: center;
     font-size: 100px;
 }

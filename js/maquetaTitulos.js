@@ -55,6 +55,7 @@ function displayTitulos(jSONContent)
 $("#m_atrasPage").click(function () {
     accionPagina = MOVIMIENTO_PAGINA_ATRAS;
     paginaActual += 1;
+    window.location.hash += '/pA'+ paginaActual;
     //setActualPost(postActual);
     getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
 });
@@ -63,6 +64,7 @@ $("#m_siguentePage").click(function () {
     if (paginaActual != 1)
     {
         paginaActual -= 1;
+        window.location.hash += '/pS'+ paginaActual;
         //setActualPost(postActual);
         getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
     }
@@ -75,6 +77,7 @@ $("#m_siguentePage").click(function () {
 //Captura de Click para mostrar el contenido de un post
 $("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
     var idPost = obCliked.target.getAttribute('data-tag');
+    	window.location.hash += '/'+ idPost;
     getJsonContent(getUrlContent(idPost), displayContent);
 });
 

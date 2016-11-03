@@ -182,11 +182,11 @@
         <!-- Bootstrap --><script src="js/bootstrap.min.js"></script>
         <!-- Spinner (png loading rotation sistem) --><script src="js/Spinner.js"></script>
         <!-- Pila Controler --><script src="js/PilaControl.js"></script>
-        <!-- Propios del sistema --><script src="js/eventos.js"></script>
         <!-- Maquetas visuales -->
             <!-- Titulos --><script src="js/maquetaTitulos.js"></script>
             <!-- HorarioLabPDF--><script src="js/maquetaHorariosLab.js"></script>
             <!-- Controlador de Actualizaciones --><script src="js/statUpdate.js"></script>
         <!-- YouTubeAPI Control --><script src="js/youTubeController.js"></script>
+        <!-- Propios del sistema, control de eventos general --><script src="js/eventos.js"></script>
     </body>
 </html>

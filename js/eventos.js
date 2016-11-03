@@ -189,33 +189,6 @@ $("#m_atras").click(function ()
 	//Removiendo pila
 	var posMove = postAnterior.remove();
 
-	//hash HTML
-	var hashA = window.location.hash;
-	hashA = hashA.split("/");
-	console.log("Tamaño: "+ hashA.length);
-	console.log(hashA);
-	if (hashA.length > 1)
-	{
-		hashA = hashA.splice(0, hashA.length-1);
-		var i = hashA.length-1;
-		var hashF = '';
-		hashA.forEach(function(hash)
-		{
-			hashF += hash;
-			if (i != 0)
-			{
-				hashF += '/';
-			}
-			i--;
-		});
-		window.location.hash = hashF;
-	}
-	else
-	{
-		console.log("nada!");
-		window.location.hash = '';
-	}
-
 	//contenido
     if (posMove == POST_HOME)
     {
@@ -430,7 +403,9 @@ function getApiLocation(post)
 //Pagina lista!
 $( document ).ready(function()
 {
-    //Toma la fecha actual
+	//set move hash
+	moveHash();
+	//Toma la fecha actual
 	setHora();
 	//Mostrando Menu
 	showMenuEfectFirst();
@@ -447,3 +422,61 @@ $("#contentPrincipal").on("click", "a", function (obCliked) {
 	}
 	return false;
 });
+
+function moveHash()
+{
+	//set Hash home
+	if (window.location.hash != "" && window.location.hash != "#home")
+	{
+		//viene con un hash, vamos a ver donde corresponde...
+		var hashA = listHash();
+		var i = 0;
+		hashA.forEach(function(hash)
+		{
+			switch(i)
+			{
+				case 0: //Caso pagina principal de contenido
+					switch (hash)
+					{
+						case "noticias":
+							noticiasGenerator();
+							break;
+						case "eventos":
+							eventosGenerator();
+							break;
+						case "offLaboral":
+							ofertLaboralGenerator();
+							break;
+						case "horarioLab":
+							horarioLabGenerator();
+							break;
+						case "practica":
+							practicaLaboralGenerator();
+							break;
+					}
+					break;
+				case 1: //caso de pagina
+					var regExpPage = new RegExp("p[0-9]?[0-9]");
+					if (regExpPage.test(hash))
+					{
+						moverAPagina(String(hash.match(/[0-9]?[0-9]/g)));
+						break;
+					}
+				case 2: //caso de detalle de publicacion en concreto (id public)
+					var regExpPubliID = new RegExp("[0-9].[^a-z]*");
+					if (regExpPubliID.test(hash))
+					{
+						getInfoPost(String(hash.match(/[0-9].[^a-z]*/g)));
+					}
+				break;
+			}
+			console.log("entrando a: "+ hash);
+
+			i++;
+		});
+	}
+	else
+	{
+		window.location.hash = "home";
+	}
+}

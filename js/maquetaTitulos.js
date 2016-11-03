@@ -12,9 +12,23 @@ var sectionDe = 0;
  */
 function displayTitulos(jSONContent)
 {
+    //Capturando Hash
+    var hashA = listHash();
     //console.log("DEBUG: displayTitulos: Llego para mostrar (resultado ajax): "+ jSONContent);
     if (jSONContent.length > 0)
     {
+        //Setiando la posicion"
+        console.log("ahsleng: "+ hashA.length);
+        if (typeof paginaActual != "undefined" && hashA.length == 2)
+        {
+            //Si ya fue asignado un hash con la posicion, elimina y vuelve a insertar
+            var regExpPage = new RegExp("p[0-9]?[0-9]");
+            if (regExpPage.test(hashA[1]))
+            { //Caso existe hash
+                sacarHash();
+            }
+            window.location.hash += '/p'+ paginaActual;
+        }
         accionPagina = MOVIMIENTO_PAGINA_NINGUNO;
         //Escondemos el menu general
         hideMenuUpAtras();
@@ -28,7 +42,7 @@ function displayTitulos(jSONContent)
                 classNoticiaDelDia += "noticiaDelDia";
             }
             var tituloNoticia = cortarTexto(data['title'], 50);
-		textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi">'+ fechaNoticia +"</fecha>&#124; "+ tituloNoticia +'</li>';
+		    textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi">'+ fechaNoticia +"</fecha>&#124; "+ tituloNoticia +'</li>';
         });
         textAut += '</ul>';
         $("#content").html(textAut);
@@ -54,8 +68,8 @@ function displayTitulos(jSONContent)
 //Control de paginas (pagina anterior, pagine siguiente)
 $("#m_atrasPage").click(function () {
     accionPagina = MOVIMIENTO_PAGINA_ATRAS;
+    console.log("PaginaActual: "+ paginaActual);
     paginaActual += 1;
-    window.location.hash += '/pA'+ paginaActual;
     //setActualPost(postActual);
     getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
 });
@@ -64,7 +78,6 @@ $("#m_siguentePage").click(function () {
     if (paginaActual != 1)
     {
         paginaActual -= 1;
-        window.location.hash += '/pS'+ paginaActual;
         //setActualPost(postActual);
         getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
     }
@@ -74,12 +87,26 @@ $("#m_siguentePage").click(function () {
     }
 });
 
+//Esta funcion se llama cuando se reonoce el hash #p<n>
+function moverAPagina(nPagina)
+{
+    accionPagina = MOVIMIENTO_PAGINA_ATRAS;
+    console.log("Moviendo a nPagina: "+ nPagina);
+    paginaActual = parseInt(nPagina);
+    getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
+}
+
 //Captura de Click para mostrar el contenido de un post
 $("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
     var idPost = obCliked.target.getAttribute('data-tag');
-    	window.location.hash += '/'+ idPost;
-    getJsonContent(getUrlContent(idPost), displayContent);
+	window.location.hash += '/'+ idPost;
+    getInfoPost(idPost);
 });
+
+function getInfoPost(idPost)
+{
+    getJsonContent(getUrlContent(parseInt(idPost)), displayContent);
+}
 
 /* Muestra el detalle del titulo selecionado */
 function displayContent(jSONContent)

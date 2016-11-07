@@ -2,8 +2,8 @@
  * Constantes
  */
 //Api:
+const URL_API 					= "http://turensoft.com/jmcInfo/wp/wp-json/"; /* API DE PRUEBA! */
 //const URL_API 					= "http://www.inf.jmc.utfsm.cl/wp-json/";
-const URL_API 					= "http://turensoft.com/jmcInfo/wp/wp-json/";
 const OFERTAS_API_LOCATION      = "posts?type[]=laborales";
 const PRACTICAS_API_LOCATION    = "posts?type[]=practicas";
 const NOTICAS_API_LOCATION      = "posts?";
@@ -38,6 +38,8 @@ var postAnterior 	= new PilaControl();
 var rotationPng 	= null;
 var enMovimientoPng = false;
 //Nuevas publicaciones
+//Moviendo hash
+var hashPosiotion = "#home";
 
 /**
  * Funciones Generales
@@ -291,7 +293,7 @@ function chkIframe(url)
 
 //Noticias:
 $("#m_noticias_carrera").click(function () {
-	window.location.hash = 'noticias';
+	setHashPost('noticias');
     noticiasGenerator();
 });
 function noticiasGenerator()
@@ -304,7 +306,7 @@ function noticiasGenerator()
 }
 //Eventos:
 $("#m_eventos").click(function () {
-	window.location.hash = 'eventos';
+	setHashPost('eventos');
     eventosGenerator();
 });
 function eventosGenerator()
@@ -317,7 +319,7 @@ function eventosGenerator()
 }
 //Ofertas laborales
 $("#m_oferta_laboral").click(function () {
-	window.location.hash = 'offLaboral';
+	setHashPost('offLaboral');
 	ofertLaboralGenerator();
 });
 function ofertLaboralGenerator()
@@ -329,7 +331,7 @@ function ofertLaboralGenerator()
 }
 //Horario laboratorios
 $("#m_horario_labs").click(function () {
-	window.location.hash = 'horarioLab';
+	setHashPost('horarioLab');
     horarioLabGenerator();
 });
 function horarioLabGenerator()
@@ -341,7 +343,7 @@ function horarioLabGenerator()
 }
 //Practicas laborales
 $("#m_practica_profecional").click(function () {
-	window.location.hash = 'practica';
+	setHashPost('practica');
     practicaLaboralGenerator();
 });
 
@@ -470,13 +472,26 @@ function moveHash()
 					}
 				break;
 			}
-			console.log("entrando a: "+ hash);
-
 			i++;
 		});
 	}
 	else
 	{
-		window.location.hash = "home";
+		setHashPost('home');
+		if (postActual != POST_HOME)
+		{
+			setActualPost(POST_HOME);
+	        hideMenuUpAtras();
+		}
+	}
+}
+
+/*Deteccion de cambio de posicion (boton atras, o adelante en la pagina)*/
+window.onhashchange = function()
+{
+	if (window.location.hash != hashPosiotion)
+	{
+		moveHash();
+		console.log("Retrocedio!: "+ window.location.hash +" pV: "+ hashPosiotion);
 	}
 }

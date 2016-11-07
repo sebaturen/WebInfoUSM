@@ -37,8 +37,10 @@ PilaControl.prototype.clear = function()
 //Saca el ultimo hash, si es el ultimo deja "#home" como la primera.
 function sacarHash()
 {
+    console.log("remove hash");
     //hash HTML
     var hashA = listHash();
+    var hashFinal;
 	if (hashA.length > 1)
 	{
 		hashA = hashA.splice(0, hashA.length-1);
@@ -53,12 +55,13 @@ function sacarHash()
 			}
 			i--;
 		});
-		window.location.hash = hashF;
+        hashFinal = hashF;
 	}
 	else
 	{
-		window.location.hash = 'home';
+        hashFinal = 'home';
 	}
+    setHashPost(hashFinal);
 }
 
 function listHash()
@@ -67,4 +70,15 @@ function listHash()
     hashA = hashA.substring(1,hashA.length);
     hashA = hashA.split("/");
     return hashA;
+}
+
+function setHashPost(hashSet)
+{
+    window.location.hash = hashSet;
+    hashPosiotion = window.location.hash;
+}
+
+function setAddHashPost(hashSet)
+{
+    setHashPost(window.location.hash + hashSet);
 }

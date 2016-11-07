@@ -18,16 +18,23 @@ function displayTitulos(jSONContent)
     if (jSONContent.length > 0)
     {
         //Setiando la posicion"
-        console.log("ahsleng: "+ hashA.length);
-        if (typeof paginaActual != "undefined" && hashA.length == 2)
+        console.log(hashA);
+        if (typeof paginaActual != "undefined")
         {
             //Si ya fue asignado un hash con la posicion, elimina y vuelve a insertar
             var regExpPage = new RegExp("p[0-9]?[0-9]");
-            if (regExpPage.test(hashA[1]))
+            if (hashA.length == 2 && regExpPage.test(hashA[1]))
             { //Caso existe hash
                 sacarHash();
+                if (paginaActual > 1)
+                {
+                    setAddHashPost('/p'+ paginaActual);
+                }
             }
-            window.location.hash += '/p'+ paginaActual;
+            if (hashA.length < 2 && paginaActual > 1) //así no afecta cuando el usuario entre a por ejemplo #noticias/p<id pagina>/<id noticia>
+            {
+                setAddHashPost('/p'+ paginaActual);
+            }
         }
         accionPagina = MOVIMIENTO_PAGINA_NINGUNO;
         //Escondemos el menu general
@@ -68,7 +75,7 @@ function displayTitulos(jSONContent)
 //Control de paginas (pagina anterior, pagine siguiente)
 $("#m_atrasPage").click(function () {
     accionPagina = MOVIMIENTO_PAGINA_ATRAS;
-    console.log("PaginaActual: "+ paginaActual);
+    //console.log("PaginaActual: "+ paginaActual);
     paginaActual += 1;
     //setActualPost(postActual);
     getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
@@ -91,7 +98,7 @@ $("#m_siguentePage").click(function () {
 function moverAPagina(nPagina)
 {
     accionPagina = MOVIMIENTO_PAGINA_ATRAS;
-    console.log("Moviendo a nPagina: "+ nPagina);
+    //console.log("Moviendo a nPagina: "+ nPagina);
     paginaActual = parseInt(nPagina);
     getJsonContent(getUrlTitulos(getApiLocation(postActual)), displayTitulos);
 }
@@ -99,7 +106,7 @@ function moverAPagina(nPagina)
 //Captura de Click para mostrar el contenido de un post
 $("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
     var idPost = obCliked.target.getAttribute('data-tag');
-	window.location.hash += '/'+ idPost;
+    setAddHashPost('/'+ idPost);
     getInfoPost(idPost);
 });
 
@@ -125,14 +132,14 @@ function displayContent(jSONContent)
     {
         getJsonContent(getUrlMetaPost(jSONContent['ID']), loadMetaInfo);
     }
-    console.log(jSONContent);
+    //console.log(jSONContent);
 }
 
 //Organiza los meta de eventos, practicas y ofertas
 function loadMetaInfo(jSONContent)
 {
     var tFinal = "";
-    console.log(jSONContent);
+    //console.log(jSONContent);
     switch(sectionDe)
     {
         case POST_EVENTOS:

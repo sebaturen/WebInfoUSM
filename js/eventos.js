@@ -1,8 +1,10 @@
 /**
  * Constantes
  */
+ //URL BASE
+const URL_BASE					= "http://turensoft.com/jmcInfo/"; //se usa para buscar los .php que generan imagenes o buscan si son posible el iframe.
 //Api:
-const URL_API 					= "http://turensoft.com/jmcInfo/wp/wp-json/"; /* API DE PRUEBA! */
+const URL_API 					= URL_BASE + "wp/wp-json/"; /* API DE PRUEBA! */
 //const URL_API 					= "http://www.inf.jmc.utfsm.cl/wp-json/";
 const OFERTAS_API_LOCATION      = "posts?type[]=laborales";
 const PRACTICAS_API_LOCATION    = "posts?type[]=practicas";
@@ -251,7 +253,7 @@ function loadIframe(url)
 
 function chkIframe(url)
 {
-	urlConsilt = "validExternalFrame.php";
+	urlConsilt = URL_BASE + "validExternalFrame.php";
 	$.getJSON( urlConsilt, {
 	  url: url
 	})
@@ -265,7 +267,7 @@ function chkIframe(url)
 			var urlCarga = url;
 			if (data.typeImg == true)
 			{
-				var urlCarga = "showImg.php?url="+ url;
+				var urlCarga = URL_BASE + "showImg.php?url="+ url;
 			}
 			if (postActual == POST_HORARIO_LAB || data.typeImg == true)
 			{
@@ -420,7 +422,14 @@ $("#contentPrincipal").on("click", "a", function (obCliked) {
     var urlHref = obCliked.currentTarget.getAttribute('href');
 	if (urlHref != null)
 	{
-		loadIframe(urlHref);
+		if ($("#runEfectCarga").data("content") != 2) //version en totem!
+		{
+			loadIframe(urlHref);
+		}
+		else
+		{ //version en telefonos!
+			window.open(urlHref, '_system');
+		}
 	}
 	return false;
 });

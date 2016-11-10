@@ -37,7 +37,7 @@ PilaControl.prototype.clear = function()
 //Saca el ultimo hash, si es el ultimo deja "#home" como la primera.
 function sacarHash()
 {
-    console.log("remove hash");
+    //console.log("remove hash");
     //hash HTML
     var hashA = listHash();
     var hashFinal;

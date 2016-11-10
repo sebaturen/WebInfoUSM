@@ -246,7 +246,8 @@ function timUpdInter() {
 function timerIncrement() {
     idleTime = idleTime + 1;
 	//console.log("Idle Time: "+ idleTime);
-    if (idleTime > 1) { // 20 minutes
+    if (idleTime > 1) { // 2 minutes
+		setHashPost("home");
         window.location.reload();
     }
 }

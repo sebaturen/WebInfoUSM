@@ -18,7 +18,7 @@ function displayTitulos(jSONContent)
     if (jSONContent.length > 0)
     {
         //Setiando la posicion"
-        console.log(hashA);
+        //console.log(hashA);
         if (typeof paginaActual != "undefined")
         {
             //Si ya fue asignado un hash con la posicion, elimina y vuelve a insertar
@@ -49,7 +49,7 @@ function displayTitulos(jSONContent)
                 classNoticiaDelDia += "noticiaDelDia";
             }
             var tituloNoticia = cortarTexto(data['title'], 50);
-		    textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi">'+ fechaNoticia +"</fecha>&#124; "+ tituloNoticia +'</li>';
+		    textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi" data-tag="'+ data['ID'] +'">'+ fechaNoticia +"</fecha>&#124; "+ tituloNoticia +'</li>';
         });
         textAut += '</ul>';
         $("#content").html(textAut);
@@ -106,8 +106,15 @@ function moverAPagina(nPagina)
 //Captura de Click para mostrar el contenido de un post
 $("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
     var idPost = obCliked.target.getAttribute('data-tag');
-    setAddHashPost('/'+ idPost);
-    getInfoPost(idPost);
+    if ($.isNumeric(idPost))
+    {
+        setAddHashPost('/'+ idPost);
+        getInfoPost(idPost);
+    }
+    else
+    {
+        showError("Existe un error al cargar el contenido");
+    }
 });
 
 function getInfoPost(idPost)
@@ -122,10 +129,12 @@ function displayContent(jSONContent)
     sectionDe = postActual;
     setActualPost(POST_DETAIL_INFO);
 	hideMenuUpAtras();
+    $("#content").html("<div id='info_Post'></div>");
     //Tomamos el contenido y mostramos
-    $("#content").html(jSONContent['content']);
-	$("#content").prepend("<p class='fechaLi'>"+ generateFechaString(new Date(jSONContent['date'])) +"</p>");
-    $("#content").prepend("<h1 class='titloNoticiaDetail'>"+jSONContent['title']+"</h1>");
+    var tFinal = "<h1 class='titloNoticiaDetail'>"+jSONContent['title']+"</h1>";
+    tFinal += "<p class='fechaLi'>"+ generateFechaString(new Date(jSONContent['date'])) +"</p>";
+    tFinal += jSONContent['content'];
+    $("#info_Post").html(tFinal);
     if (sectionDe == POST_EVENTOS ||
         sectionDe == POST_PRACTICA_PROFECIONAL ||
         sectionDe == POST_OFERTA_LABORAL)
@@ -265,8 +274,8 @@ function loadMetaInfo(jSONContent)
             }
             break;
     }
-    $("#content").append("<h1 class='titloNoticiaDetail'>Detalle</h1>");
-    $("#content").append(tFinal);
+    $("#info_Post").append("<h1 class='titloNoticiaDetail'>Detalle</h1>");
+    $("#info_Post").append(tFinal);
 }
 
 function generateFechaString(dataObj)

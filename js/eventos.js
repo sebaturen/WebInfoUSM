@@ -46,9 +46,14 @@ var hashPosiotion = "#home";
 /**
  * Funciones Generales
  */
- /* Se encarga de hacer el llamado aJax y obtener el resultado, enviandolo a donde debe ser procesado*/
-function getJsonContent(url, callBackFunction, loadDiv = true)
+/* Se encarga de hacer el llamado aJax y obtener el resultado, enviandolo a donde debe ser procesado*/
+function getJsonContent(url, callBackFunction, loadDiv)
 {
+	//Validando tipo de carga
+	if (typeof loadDiv == "undefined")
+	{
+		loadDiv = true;
+	}
     //Div muestra de carga...
 	if (loadDiv)
 	{
@@ -217,6 +222,15 @@ $("#m_atras").click(function ()
     }
     //console.log(postAnterior);
 });
+//Fuera de totem
+function isTotem()
+{
+	if ($("#runEfectCarga").data("content") != 2)
+	{
+		true;
+	}
+	false;
+}
 //Cerrar iframe
 $("#m_iFrameCerrar").click(function() {
 	cerrarIframe();

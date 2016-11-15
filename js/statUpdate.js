@@ -228,19 +228,22 @@ function sacarMascara(args)
 //Creditos IDLE TIme: http://stackoverflow.com/questions/667555/detecting-idle-time-in-javascript-elegantly
 var idleTime = 0;
 function timUpdInter() {
-    //Increment the idle time counter every minute.
-	if (postActual != POST_HOME)
+	if (isTotem())
 	{
-    	var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
-	}
+	    //Increment the idle time counter every minute.
+		if (postActual != POST_HOME)
+		{
+	    	var idleInterval = setInterval(timerIncrement, 60000); // 1 minute
+		}
 
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        idleTime = 0;
-    });
-    $(this).keypress(function (e) {
-        idleTime = 0;
-    });
+	    //Zero the idle timer on mouse movement.
+	    $(this).mousemove(function (e) {
+	        idleTime = 0;
+	    });
+	    $(this).keypress(function (e) {
+	        idleTime = 0;
+	    });
+	}
 }
 
 function timerIncrement() {

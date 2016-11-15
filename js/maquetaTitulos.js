@@ -49,7 +49,17 @@ function displayTitulos(jSONContent)
                 classNoticiaDelDia += "noticiaDelDia";
             }
             var tituloNoticia = cortarTexto(data['title'], 50);
-		    textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'" data-tag="'+ data['ID'] +'"><fecha class="fechaLi" data-tag="'+ data['ID'] +'">'+ fechaNoticia +"</fecha>&#124; "+ tituloNoticia +'</li>';
+            var txConent = '<div class="getArticInfo" data-tag="'+ data['ID'] +'"><fecha class="fechaLi" data-tag="'+ data['ID'] +'">'+ fechaNoticia +"</fecha> &#124; "+ tituloNoticia +"</div>";
+
+            //en NO TOTEM, este contenido no se debe ver, debe redirigir a la pagina de la usm para que solo alumnos validados puedan acceder
+            if (postActual == POST_OFERTA_LABORAL || postActual == POST_PRACTICA_PROFECIONAL)
+            {
+                if (!isTotem())
+                {
+                    txConent = "<a href='"+ data['link'] +"' style='display: block;'><div class='titlArticulInf'>"+ txConent +"</div><div class='vrWeb'>Ver en la WEB</div></a>";
+                }
+            }
+		    textAut += '<li class="list-group-item sectionTitle '+ classNoticiaDelDia +'">'+ txConent +'</li>';
         });
         textAut += '</ul>';
         $("#content").html(textAut);
@@ -104,8 +114,15 @@ function moverAPagina(nPagina)
 }
 
 //Captura de Click para mostrar el contenido de un post
-$("#contentPrincipal").on("click", ".sectionTitle", function (obCliked) {
+$("#contentPrincipal").on("click", ".getArticInfo", function (obCliked) {
     var idPost = obCliked.target.getAttribute('data-tag');
+    if (postActual == POST_OFERTA_LABORAL || postActual == POST_PRACTICA_PROFECIONAL)
+    {
+        if (!isTotem()) //Si es una oferta o practica, y no esta en el totem, sale
+        {
+            return;
+        }
+    }
     if ($.isNumeric(idPost))
     {
         setAddHashPost('/'+ idPost);
@@ -139,7 +156,7 @@ function displayContent(jSONContent)
         sectionDe == POST_PRACTICA_PROFECIONAL ||
         sectionDe == POST_OFERTA_LABORAL)
     {
-        getJsonContent(getUrlMetaPost(jSONContent['ID']), loadMetaInfo);
+        getJsonContent(getUrlMetaPost(jSONContent['ID']), loadMetaInfo, false);
     }
     //console.log(jSONContent);
 }

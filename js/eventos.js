@@ -49,6 +49,7 @@ var hashPosiotion = "#home";
 /* Se encarga de hacer el llamado aJax y obtener el resultado, enviandolo a donde debe ser procesado*/
 function getJsonContent(url, callBackFunction, loadDiv)
 {
+	console.log(url);
 	//Validando tipo de carga
 	if (typeof loadDiv == "undefined")
 	{
@@ -130,6 +131,10 @@ function hideMenuUpAtras()
         $("#contentPrincipal").hide();
         $("#m_atrasP_adelanteP").hide();
         $("#content").text('');
+		if (!isTotem()) //Seccion de versiones moviles.
+		{
+			$("#zona_externa").hide();
+		}
     }
     else
     {

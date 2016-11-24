@@ -12,6 +12,7 @@ var sectionDe = 0;
  */
 function displayTitulos(jSONContent)
 {
+    console.log(jSONContent);
     //Capturando Hash
     var hashA = listHash();
     //console.log("DEBUG: displayTitulos: Llego para mostrar (resultado ajax): "+ jSONContent);
@@ -79,6 +80,14 @@ function displayTitulos(jSONContent)
         showError("No se ha encontrado nuevo contenido!");
         //REVISAR!
         //setActualPost(postAnterior.get()); //como no se entro a esta pagina, se define la anterior como actual
+    }
+    //Mostrando advertencia d eseccion prohivida:
+    if (!isTotem())
+    {
+        if (postActual == POST_OFERTA_LABORAL || postActual == POST_PRACTICA_PROFECIONAL)
+        {
+            $("#zona_externa").show();
+        }
     }
 }
 

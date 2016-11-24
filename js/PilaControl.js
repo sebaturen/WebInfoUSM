@@ -28,7 +28,7 @@ PilaControl.prototype.remove = function()
 //Borra todo del array.
 PilaControl.prototype.clear = function()
 {
-    //Set location en "homa"
+    //Set location en "home"
     window.location.hash = 'home';
     //Borrando todo...
     this.elementos.length = 0;

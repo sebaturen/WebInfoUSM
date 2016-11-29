@@ -49,7 +49,7 @@ var hashPosiotion = "#home";
 /* Se encarga de hacer el llamado aJax y obtener el resultado, enviandolo a donde debe ser procesado*/
 function getJsonContent(url, callBackFunction, loadDiv)
 {
-	console.log(url);
+	//console.log(url);
 	//Validando tipo de carga
 	if (typeof loadDiv == "undefined")
 	{
@@ -230,11 +230,11 @@ $("#m_atras").click(function ()
 //Fuera de totem
 function isTotem()
 {
-	if ($("#runEfectCarga").data("content") != 2)
+	if ($('meta[name=totemUSM]').attr("content") == 'true')
 	{
-		true;
+		return true;
 	}
-	false;
+	return false;
 }
 //Cerrar iframe
 $("#m_iFrameCerrar").click(function() {
@@ -520,6 +520,6 @@ window.onhashchange = function()
 	if (window.location.hash != hashPosiotion)
 	{
 		moveHash();
-		console.log("Retrocedio!: "+ window.location.hash +" pV: "+ hashPosiotion);
+		//console.log("Retrocedio!: "+ window.location.hash +" pV: "+ hashPosiotion);
 	}
 }

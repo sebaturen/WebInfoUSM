@@ -12,7 +12,7 @@ var sectionDe = 0;
  */
 function displayTitulos(jSONContent)
 {
-    console.log(jSONContent);
+    //console.log(jSONContent);
     //Capturando Hash
     var hashA = listHash();
     //console.log("DEBUG: displayTitulos: Llego para mostrar (resultado ajax): "+ jSONContent);
@@ -145,6 +145,14 @@ $("#contentPrincipal").on("click", ".getArticInfo", function (obCliked) {
 
 function getInfoPost(idPost)
 {
+    if (postActual == POST_EVENTOS)
+    {
+        if (!isTotem()) //Algunos eventos son privados!, esos deben ser corroborados antes de mostrarse
+        {
+            getJsonContent(getUrlMetaPost(idPost), isEventPrivado, true);
+            return;
+        }
+    }
     getJsonContent(getUrlContent(parseInt(idPost)), displayContent);
 }
 
@@ -168,6 +176,19 @@ function displayContent(jSONContent)
         getJsonContent(getUrlMetaPost(jSONContent['ID']), loadMetaInfo, false);
     }
     //console.log(jSONContent);
+}
+
+function displayContentFail(jSONContent)
+{
+    setActualPost(POST_DETAIL_INFO);
+    hideMenuUpAtras();
+    $("#content").html("<div id='info_Post'></div>");
+    //Tomamos el contenido y mostramos
+    var tFinal = "<h1 class='titloNoticiaDetail'>"+jSONContent['title']+"</h1>";
+    tFinal += "<p class='fechaLi'>"+ generateFechaString(new Date(jSONContent['date'])) +"</p>";
+    tFinal += "Para ver el contenido debes iniciar sesión en la página de la carrera, con tus credenciales USM:";
+    tFinal += " <a target='_blank' href='"+ jSONContent['link'] +"'>"+ jSONContent['link'] +"</a>";
+    $("#info_Post").html(tFinal);
 }
 
 //Organiza los meta de eventos, practicas y ofertas
@@ -312,4 +333,21 @@ function generateFechaString(dataObj)
 	if (dataObj.getMonth() < 10) fechaOut += "0";
 	fechaOut += dataObj.getMonth() +"-" + dataObj.getFullYear();
 	return fechaOut;
+}
+
+//Revisa si un evento es privado.
+function isEventPrivado(jSONContent)
+{
+    var idPost = jSONContent['post_id'];
+    if (typeof jSONContent['post_meta']['eventos_privados_v'] != undefined)
+    {
+        if (jSONContent['post_meta']['eventos_privados_v'])
+        {
+            //true!
+            getJsonContent(getUrlContent(parseInt(idPost)), displayContentFail);
+            return;
+        }
+    }
+    //false!
+    getJsonContent(getUrlContent(parseInt(idPost)), displayContent);
 }

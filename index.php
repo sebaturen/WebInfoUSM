@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="totemUSM" content="true">
         <title>Punto Informativo Táctil</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="css/estilos.css" rel="stylesheet" media="screen">
